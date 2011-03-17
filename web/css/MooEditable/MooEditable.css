@@ -163,8 +163,8 @@
 }
 
 .mooeditable-ui-dialog label { 
-	width: 382px !important; 
-	padding-right: 0 !important;
+	width: auto !important; 
+	padding: 0 !important;
 }
 
 .mooeditable-ui-dialog input.text{
