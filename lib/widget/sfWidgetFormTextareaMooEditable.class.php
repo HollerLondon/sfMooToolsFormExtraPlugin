@@ -27,6 +27,7 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
    *
    *  * config: Additional MooEditable configuration
    *  * width: The width of the editable area, defaults to 500px
+   *  * height: The height of the editable area, defaults to 200px
    *  * extratoolbar: Any additional toolbar options - include | to separate, by default this contains 'urlimage'
    *                  for image insertion
    *
@@ -38,6 +39,7 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
   protected function configure($options = array(), $attributes = array())
   {
   	$this->addOption('width', '500');
+  	$this->addOption('height', '200');
     $this->addOption('config', '');
     $this->addOption('extratoolbar', 'urlimage');
     
@@ -62,7 +64,7 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
 <script type="text/javascript">
   window.addEvent('load', function(){
     $('%s').mooEditable( { 
-      dimensions: { x: %s },
+      dimensions: { x: %s, y: %s },
       actions: 'bold italic underline | insertunorderedlist insertorderedlist | undo redo | createlink unlink | %s | toggleview',
       baseCSS: 'html { cursor: text; } body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 13px; }',
       %s
@@ -73,6 +75,7 @@ EOF
      ,
       $this->generateId($name),
       $this->getOption('width'),
+      $this->getOption('height'),
       $this->getOption('extratoolbar'),
       $this->getOption('config')
      );

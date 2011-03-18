@@ -26,6 +26,7 @@ MooEditable Textarea
   
      * config: Additional MooEditable configuration
      * width: The width of the editable area, defaults to 500px
+     * height: The height of the editable area, defaults to 200px
      * extratoolbar: Any additional toolbar options - include | to separate, by default this contains 'urlimage'
                      for image insertion
 
