@@ -100,7 +100,7 @@ EOF
   public function getJavaScripts() 
   {
     return array(
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/mootools-more.js',
+            '/sfMooToolsFormExtraPlugin/js/mootools-more.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Attach.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Date.js',

@@ -89,7 +89,8 @@ EOF
    */
   public function getJavaScripts() 
   {
-    return array('/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.js');
+    return array('/sfMooToolsFormExtraPlugin/js/mootools-more.js',
+                 '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.js');
   }
 
   
