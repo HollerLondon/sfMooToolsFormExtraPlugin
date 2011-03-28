@@ -12,6 +12,7 @@
 
 .datepicker_calendar {
 	vertical-align: middle;
+	cursor: pointer;
 }
 
 /* header
