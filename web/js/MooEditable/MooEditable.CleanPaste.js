@@ -37,7 +37,8 @@ provides: [MooEditable.CleanPaste]
     
     MooEditable = Class.refactor(MooEditable, {
     
-        Extends: MooEditable,
+        // FIXME: Removed because inferred by above and breaks MooEditable completely.
+        // Extends: MooEditable,
         
         attach: function(){
             var ret = this.previous();

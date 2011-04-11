@@ -108,11 +108,17 @@ EOF
 
   /**
    * Include Datepicker Javascript
+   * 
+   * Requires MooTools.More:
+   *  More/Date 
+   *  More/Date.Extras 
+   *  More/Locale 
+   *  More/Locale.en-GB.Date
    */
   public function getJavaScripts() 
   {
     return array(
-            '/sfMooToolsFormExtraPlugin/js/mootools-more.js',
+            //'/sfMooToolsFormExtraPlugin/js/mootools-more.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Attach.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Date.js',

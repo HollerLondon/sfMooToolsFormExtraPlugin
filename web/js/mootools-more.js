@@ -1,6 +1,6 @@
 // MooTools: the javascript framework.
-// Load this file's selection again by visiting: http://mootools.net/more/63dedb8590fdbd97250dc7c5dbf5c853 
-// Or build this file again with packager using: packager build More/Date More/Date.Extras More/Locale More/Locale.en-GB.Date
+// Load this file's selection again by visiting: http://mootools.net/more/ae872ef2564c6b585e478db4dddfc464 
+// Or build this file again with packager using: packager build More/Class.Refactor More/Date More/Date.Extras More/Locale More/Locale.en-GB.Date
 /*
 ---
 
@@ -32,6 +32,49 @@ provides: [MooTools.More]
 MooTools.More = {
 	'version': '1.3.1.1',
 	'build': '0292a3af1eea242b817fecf9daa127417d10d4ce'
+};
+
+
+/*
+---
+
+script: Class.Refactor.js
+
+name: Class.Refactor
+
+description: Extends a class onto itself with new property, preserving any items attached to the class's namespace.
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+
+requires:
+  - Core/Class
+  - /MooTools.More
+
+# Some modules declare themselves dependent on Class.Refactor
+provides: [Class.refactor, Class.Refactor]
+
+...
+*/
+
+Class.refactor = function(original, refactors){
+
+	Object.each(refactors, function(item, name){
+		var origin = original.prototype[name];
+		if (origin && origin.$origin) origin = origin.$origin;
+		original.implement(name, (typeof item == 'function') ? function(){
+			var old = this.previous;
+			this.previous = origin || function(){};
+			var value = item.apply(this, arguments);
+			this.previous = old;
+			return value;
+		} : item);
+	});
+
+	return original;
+
 };
 
 
@@ -154,7 +197,9 @@ var Locale = this.Locale = {
 
 		if (set) locale.define(set, key, value);
 
-		
+		/*<1.2compat>*/
+		if (set == 'cascade') return Locale.inherit(name, key);
+		/*</1.2compat>*/
 
 		if (!current) current = locale;
 
@@ -169,7 +214,9 @@ var Locale = this.Locale = {
 
 			this.fireEvent('change', locale);
 
-			
+			/*<1.2compat>*/
+			this.fireEvent('langChange', locale.name);
+			/*</1.2compat>*/
 		}
 
 		return this;
@@ -266,7 +313,25 @@ Locale.Set = new Class({
 
 });
 
+/*<1.2compat>*/
+var lang = MooTools.lang = {};
 
+Object.append(lang, Locale, {
+	setLanguage: Locale.use,
+	getCurrentLanguage: function(){
+		var current = Locale.getCurrent();
+		return (current) ? current.name : null;
+	},
+	set: function(){
+		Locale.define.apply(this, arguments);
+		return this;
+	},
+	get: function(set, key, args){
+		if (key) set += '.' + key;
+		return Locale.get(set, args);
+	}
+});
+/*</1.2compat>*/
 
 }).call(this);
 
@@ -757,7 +822,9 @@ Date.extend({
 		return this;
 	},
 
-	
+	//<1.2compat>
+	parsePatterns: parsePatterns,
+	//</1.2compat>
 
 	defineParser: function(pattern){
 		parsePatterns.push((pattern.re && pattern.handler) ? pattern : build(pattern));

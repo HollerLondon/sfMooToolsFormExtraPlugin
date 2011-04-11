@@ -60,12 +60,15 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
   {
     $textarea = parent::render($name, $value, $attributes, $errors);
     
+    $extraOptions = $this->getOption('extratoolbar');
+    if (!empty($extraOptions)) $extraOptions .= ' |';
+    
     $js = sprintf(<<<EOF
 <script type="text/javascript">
   window.addEvent('load', function(){
     $('%s').mooEditable( { 
       dimensions: { x: %s, y: %s },
-      actions: 'bold italic underline | insertunorderedlist insertorderedlist | undo redo | createlink unlink | %s | toggleview',
+      actions: 'bold italic underline | insertunorderedlist insertorderedlist | undo redo | createlink unlink | %s toggleview',
       baseCSS: 'html { cursor: text; } body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 13px; }',
       %s
     } );
@@ -76,7 +79,7 @@ EOF
       $this->generateId($name),
       $this->getOption('width'),
       $this->getOption('height'),
-      $this->getOption('extratoolbar'),
+      $extraOptions,
       $this->getOption('config')
      );
      
@@ -86,11 +89,19 @@ EOF
   
   /**
    * Include MooEditable Javascript
+   * 
+   * Requires MooTools.More:
+   *  More/Class.Refactor 
+   *  More/Locale 
+   *  More/Locale.en-GB.Date
    */
   public function getJavaScripts() 
   {
-    return array('/sfMooToolsFormExtraPlugin/js/mootools-more.js',
-                 '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.js');
+    return array(
+          //'/sfMooToolsFormExtraPlugin/js/mootools-more.js',
+          '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.js',
+          '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.CleanPaste.js'
+     );
   }
 
   

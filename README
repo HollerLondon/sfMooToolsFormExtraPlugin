@@ -17,6 +17,19 @@ Pre-requisites
 --------------
 
  * MooTools Core 1.3+
+ 
+ Requires custom version of MooTools.More on a project level
+ 
+ Datepicker requires MooTools.More:
+   *  More/Date 
+   *  More/Date.Extras 
+   *  More/Locale 
+   *  More/Locale.en-GB.Date
+   
+ MooEditable requires MooTools.More:
+   *  More/Class.Refactor 
+   *  More/Locale 
+   *  More/Locale.en-GB.Date
 
 
 MooEditable Textarea
