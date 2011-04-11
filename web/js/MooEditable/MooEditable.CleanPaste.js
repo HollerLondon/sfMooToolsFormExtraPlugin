@@ -8,7 +8,7 @@ description: Extends MooEditable to insert text copied from other editors like w
 license: MIT-style license
 
 authors:
-- Andr√© Fiedler <kontakt@visualdrugs.net>
+- André Fiedler <kontakt@visualdrugs.net>
 
 requires:
 - MooEditable
@@ -36,7 +36,7 @@ provides: [MooEditable.CleanPaste]
 (function(){
     
     MooEditable = Class.refactor(MooEditable, {
-    
+      
         // FIXME: Removed because inferred by above and breaks MooEditable completely.
         // Extends: MooEditable,
         
@@ -76,12 +76,14 @@ provides: [MooEditable.CleanPaste]
         },
         
         cleanHtml: function(html){
-        
+          
+            // FIXME: safari pastes in styles with ' not " - fixed to not be borken in safari
+          
             html = html.replace(/<o:p>\s*<\/o:p>/g, '');
             html = html.replace(/<o:p>[\s\S]*?<\/o:p>/g, '&nbsp;');
             
             // remove mso-xxx styles.
-            html = html.replace(/\s*mso-[^:]+:[^;"]+;?/gi, '');
+            html = html.replace(/\s*mso-[^:]+:[^;"']+;?/gi, '');
             
             // remove margin styles.
             html = html.replace(/\s*MARGIN: 0cm 0cm 0pt\s*;/gi, '');
@@ -96,27 +98,29 @@ provides: [MooEditable.CleanPaste]
             
             html = html.replace(/\s*FONT-VARIANT: [^\s;]+;?"/gi, "\"");
             
-            html = html.replace(/\s*tab-stops:[^;"]*;?/gi, '');
-            html = html.replace(/\s*tab-stops:[^"]*/gi, '');
+            html = html.replace(/\s*tab-stops:[^;"']*;?/gi, '');
+            html = html.replace(/\s*tab-stops:[^"']*/gi, '');
             
             // remove FONT face attributes.
-            html = html.replace(/\s*face="[^"]*"/gi, '');
+            html = html.replace(/\s*face="[^"']*"/gi, '');
             html = html.replace(/\s*face=[^ >]*/gi, '');
             
-            html = html.replace(/\s*FONT-FAMILY:[^;"]*;?/gi, '');
+            html = html.replace(/\s*FONT-FAMILY:[^;"']*;?/gi, '');
+            html = html.replace(/\s*FONT-SIZE:[^;"']*;?/gi, '');
             
             // remove class attributes
             html = html.replace(/<(\w[^>]*) class=([^ |>]*)([^>]*)/gi, "<$1$3");
             
             // remove styles.
-            html = html.replace(/<(\w[^>]*) style="([^\"]*)"([^>]*)/gi, "< $1$3");
+            html = html.replace(/<(\w[^>]*) style="([^\"']*)"([^>]*)/gi, "<$1$3");
             
             // remove style, meta and link tags
-            html = html.replace(/<STYLE[^>]*>[\s\S]*?<\/STYLE[^>]*>/gi, '');
+            html = html.replace(/<STYLE[^>]*?>[\s\S]*?<\/STYLE[^>]*>/gi, '');
             html = html.replace(/<(?:META|LINK)[^>]*>\s*/gi, '');
             
             // remove empty styles.
             html = html.replace(/\s*style="\s*"/gi, '');
+            html = html.replace(/\s*style='\s*'/gi, '');
             
             html = html.replace(/<SPAN\s*[^>]*>\s*&nbsp;\s*<\/SPAN>/gi, '&nbsp;');
             
@@ -146,14 +150,14 @@ provides: [MooEditable.CleanPaste]
             html = html.replace(/<H\d>\s*<\/H\d>/gi, '');
             
             // remove "display:none" tags.
-            html = html.replace(/<(\w+)[^>]*\sstyle="[^"]*DISPLAY\s?:\s?none[\s \S]*?<\/\1>/ig, '');
+            html = html.replace(/<(\w+)[^>]*\sstyle="[^"']*DISPLAY\s?:\s?none[\s \S]*?<\/\1>/ig, '');
             
             // remove language tags
-            html = html.replace(/<(\w[^>]*) language=([^ |>]*)([^>]*)/gi, "< $1$3");
+            html = html.replace(/<(\w[^>]*) language=([^ |>]*)([^>]*)/gi, "<$1$3");
             
             // remove onmouseover and onmouseout events (from MS word comments effect)
-            html = html.replace(/<(\w[^>]*) onmouseover="([^\"]*)"([^>]*)/gi, "< $1$3");
-            html = html.replace(/<(\w[^>]*) onmouseout="([^\"]*)"([^>]*)/gi, "< $1$3");
+            html = html.replace(/<(\w[^>]*) onmouseover="([^\"']*)"([^>]*)/gi, "<$1$3");
+            html = html.replace(/<(\w[^>]*) onmouseout="([^\"']*)"([^>]*)/gi, "<$1$3");
             
             // the original <Hn> tag send from word is something like this: <Hn style="margin-top:0px;margin-bottom:0px">
             html = html.replace(/<H(\d)([^>]*)>/gi, '<h$1>');
@@ -177,7 +181,7 @@ provides: [MooEditable.CleanPaste]
                 html.replace(/<\\p>/gi, '');
             }
             
-            return html;
+            return html.trim();
         }
     });
     
