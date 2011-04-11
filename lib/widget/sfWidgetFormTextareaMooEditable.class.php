@@ -98,10 +98,9 @@ EOF
   public function getJavaScripts() 
   {
     return array(
-          //'/sfMooToolsFormExtraPlugin/js/mootools-more.js',
-          '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.js',
-          '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.CleanPaste.js'
-     );
+      '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.js',
+      '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.CleanPaste.js',
+    );
   }
 
   
