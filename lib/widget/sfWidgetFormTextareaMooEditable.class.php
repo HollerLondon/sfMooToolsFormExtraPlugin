@@ -38,8 +38,8 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
    */
   protected function configure($options = array(), $attributes = array())
   {
-  	$this->addOption('width', '500');
-  	$this->addOption('height', '200');
+  	$this->addOption('width', '660');
+  	$this->addOption('height', '400');
     $this->addOption('config', '');
     $this->addOption('extratoolbar', 'urlimage');
     
