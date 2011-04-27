@@ -68,7 +68,7 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
   window.addEvent('load', function(){
     $('%s').mooEditable( { 
       dimensions: { x: %s, y: %s },
-      actions: 'bold italic underline | insertunorderedlist insertorderedlist | undo redo | createlink unlink | %s toggleview',
+      actions: '%s | %s toggleview',
       baseCSS: '%s',
       %s
     } );
@@ -79,6 +79,7 @@ EOF
       $this->generateId($name),
       $this->getOption('width'),
       $this->getOption('height'),
+      sfConfig::get('app_mooeditable_base_toolbar'),
       $extraOptions,
       sfConfig::get('app_mooeditable_base_css'),
       $this->getOption('config')
@@ -105,6 +106,10 @@ EOF
       $js[] = '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.CleanPaste.js';
     }
     
+    $extra_js = sfConfig::get('app_mooeditable_extra_js');
+    
+    if (!empty($extra_js)) $js += $extra_js;
+    
     return $js;
   }
 
@@ -114,6 +119,12 @@ EOF
    */
   public function getStylesheets()
   {
-    return array('/sfMooToolsFormExtraPlugin/css/MooEditable/MooEditable.css' => 'screen');
+    $css = array('/sfMooToolsFormExtraPlugin/css/MooEditable/MooEditable.css' => 'screen');
+    
+    $extra_css = sfConfig::get('app_mooeditable_extra_css');
+    
+    if (!empty($extra_css)) $css += $extra_css;
+    
+    return $css;
   }
 }

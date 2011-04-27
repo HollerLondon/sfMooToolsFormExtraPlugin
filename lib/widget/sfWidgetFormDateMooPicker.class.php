@@ -101,7 +101,7 @@ EOF
       $this->generateId($name)   // year
      );
      
-     $toggle = sprintf('<img src="%/s%s/icon_calendar.gif" class="datepicker_calendar" alt="Calendar" id="%s_control" />',
+     $toggle = sprintf('<img src="%s/%s/icon_calendar.gif" class="datepicker_calendar" alt="Calendar" id="%s_control" />',
                 sfConfig::get('app_datepicker_base_css_location'),
                 sfConfig::get('app_datepicker_picker_class'),
                 $this->generateId($name));

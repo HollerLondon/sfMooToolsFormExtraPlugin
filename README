@@ -1,66 +1,65 @@
 sfMooToolsFormExtraPlugin
 =========================
 
-@author:    Jo Carter <jocarter@holler.co.uk>
+@author:    Jo Carter (<jocarter@holler.co.uk>)
+
 @version:   1.0
 
 
 Introduction
 ------------
 
-This plugin contains several widgets (and a validator) for use with the MooTools javascript framework (http://mootools.net/).
+This plugin contains several widgets (and a validator) for use with the [MooTools](http://mootools.net/) javascript framework.
 
 Be sure to ./symfony plugin:publish-assets after installation to ensure all the Javascript and Stylesheet files are in place
 
 
-Pre-requisites
---------------
+Javascript Pre-requisites
+-------------------------
 
  * MooTools Core 1.3+
- 
- Requires custom version of MooTools.More on a project level
- 
- Datepicker requires MooTools.More:
-   *  More/Date 
-   *  More/Date.Extras 
-   *  More/Locale 
-   *  More/Locale.en-GB.Date
-   
- MooEditable requires MooTools.More:
-   *  More/Class.Refactor 
-   *  More/Locale 
-   *  More/Locale.en-GB.Date
+ * Custom version of MooTools.More on a project level
+   * Datepicker requires MooTools.More:
+     * More/Date 
+     * More/Date.Extras 
+     * More/Locale 
+     * More/Locale.en-GB.Date
+   * MooEditable requires MooTools.More:
+     * More/Class.Refactor 
+     * More/Locale 
+     * More/Locale.en-GB.Date
 
 
 MooEditable Textarea
 --------------------
 
-  All configuration options:
+All configuration options:
+
+ * config: Additional MooEditable configuration
+ * width: The width of the editable area, defaults to 660px
+ * height: The height of the editable area, defaults to 400px
+ * extratoolbar: Any additional toolbar options - include | to separate, by default this contains 'urlimage'
+                  for image insertion
+
+Default configuration (controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml):
+
+ * Controls default height and width
+ * Controls base CSS for the editable area
+ * Controls whether CleanPaste included (by default)
+ * Controls base toolbar options, and allows extra CSS and JS to be added if the default toolbar for all widgets is changed
+
+Enhanced string validator:
   
-     * config: Additional MooEditable configuration
-     * width: The width of the editable area, defaults to 660px
-     * height: The height of the editable area, defaults to 400px
-     * extratoolbar: Any additional toolbar options - include | to separate, by default this contains 'urlimage'
-                     for image insertion
-
-  Default configuration:
-  
-    * Controlled in app.yml and can be overridden locally
-    * Controls default height and width
-    * Controls base CSS for the editable area
-    * Controls whether CleanPaste included
+ * Adds %current_length% to the options for the validator messages
+ * Strips HTML tags before calculating length, but returns the string with HTML
+ * Can be used in conjunction with other validators
 
 
-  Enhanced string validator:
-    
-    * Adds %current_length% to the options for the validator messages
-    * Strips HTML tags before calculating length, but returns the string with HTML
-    * Can be used in conjunction with other validators
+### Example usage: ###
 
+![mooeditable.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/mooeditable.png)
 
-  Example usage:
-
-    Default implementation, with enhanced validator:
+  Default implementation, with enhanced validator:
     
       $this->widgetSchema['summary'] = new sfWidgetFormTextareaMooEditable();
       $this->validatorSchema['summary'] = new sfEnhancedValidatorString(array('max_length'=>200), 
@@ -70,71 +69,73 @@ MooEditable Textarea
 Datepicker - input box with calendar control on input click
 -----------------------------------------------------------
 
-  All configuration options:
-  
-    * locale: defaults to en-GB - if this is changed, will require additional locale JS files
-    * with_time: include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
-    * min_date: default is none, set to restrict date range (format: same as the date_format)
-    * max_date: default is none, set to restrict date range (format: same as the date_format)
+All configuration options:
 
-  Default configuration:
-  
-    * Controlled in app.yml and can be overridden locally
-    * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
-    * Controls the theme and location of the theme CSS files and images
+ * locale: defaults to en-GB - if this is changed, will require additional JS locale files
+ * with_time: include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
+ * min_date: default is none, set to restrict date range (format: same as the date_format)
+ * max_date: default is none, set to restrict date range (format: same as the date_format)
+
+Default configuration (controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml):
+
+ * Controls locale (defaults to en-GB), and location of locale files - must include all locales if local files
+ * Controls the theme and location of the theme CSS files and images
 
 
-  Example usage:
-  
-    Just date:
+### Example usage: ###
+
+![datepicker_input.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/datepicker_input.png)
+
+  Just date:
     
       $this->widgetSchema['date'] = new sfWidgetFormInputDateTimeMooPicker();
-      
-    Date with min and max:
+    
+  Date with min and max:
     
       $minDate = '2006-01-01';
       $maxDate = (date('Y') + 1) . '-12-31';
       $this->widgetSchema['date'] = new sfWidgetFormInputDateTimeMooPicker(array('min_date'=>$minDate, 'max_date'=>$maxDate));
       
-    With time:
-  
+  With time:
+
       $this->widgetSchema['date'] = new sfWidgetFormInputDateTimeMooPicker(array('with_time'=>'true'));
 
   
 Datepicker - dropdowns with calendar control on image click
 -----------------------------------------------------------
 
-  All configuration options:
+All configuration options:
+
+(date):
+
+ * locale: defaults to en-GB - if this is changed, will require additional JS locale files
+ * min_date: default is none, set to restrict date range (format: Y-m-d)
+ * max_date: default is none, set to restrict date range (format: Y-m-d)
+ * date_widget: The date widget to render with the calendar
+
+(datetime):
+
+ * locale: defaults to en-GB - if this is changed, will require additional JS locale files
+ * min_date: default is none, set to restrict date range (format: Y-m-d)
+ * max_date: default is none, set to restrict date range (format: Y-m-d)
+ * date_time_widget: The datetime widget to render with the calendar
   
-    (date):
-    
-      * locale: defaults to en-GB - if this is changed, will require additional locale JS files
-      * min_date: default is none, set to restrict date range (format: Y-m-d)
-      * max_date: default is none, set to restrict date range (format: Y-m-d)
-      * date_widget: The date widget to render with the calendar
-  
-    (datetime):
-    
-      * locale: defaults to en-GB - if this is changed, will require additional locale JS files
-      * min_date: default is none, set to restrict date range (format: Y-m-d)
-      * max_date: default is none, set to restrict date range (format: Y-m-d)
-      * date_time_widget: The datetime widget to render with the calendar
-    
-  Default configuration:
-  
-    * Controlled in app.yml and can be overridden locally
-    * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
-    * Controls the theme and location of the theme CSS files and images
+Default configuration (controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml):
+
+ * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
+ * Controls the theme and location of the theme CSS files and images
     
     
-  Example usage:
-  
-    Just date:
+### Example usage: ###
+
+![datepicker_date.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/datepicker_date.png)
+
+  Just date:
   
       $this->widgetSchema['date'] = new sfWidgetFormDateMooPicker();
       
-    Date with min and max and customised date widget:
-  
+  Date with min and max and customised date widget:
+
       $years = range(2006, (date('Y') + 1));
       $minDate = '2006-01-01';
       $maxDate = (date('Y') + 1) . '-12-31';
@@ -142,12 +143,14 @@ Datepicker - dropdowns with calendar control on image click
                                                                         'date_widget'=>new sfWidgetFormDate(array('years'=>array_combine($years, $years), 
                                                                                                                   'format'=>'%day% %month% %year%'))));
       
-    With time:
-    
+  With time:
+  
       $this->widgetSchema['date'] = new sfWidgetFormDateTimeMooPicker();
-      
-    Customised datetime widget:
     
+![datepicker_datetime.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/datepicker_datetime.png)
+    
+  Customised datetime widget:
+  
       $years = range(2006, (date('Y') + 1));
       $minDate = '2006-01-01';
       $maxDate = (date('Y') + 1) . '-12-31';
