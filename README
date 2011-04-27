@@ -38,7 +38,7 @@ MooEditable Textarea
   All configuration options:
   
      * config: Additional MooEditable configuration
-     * width: The width of the editable area, defaults to 600px
+     * width: The width of the editable area, defaults to 660px
      * height: The height of the editable area, defaults to 400px
      * extratoolbar: Any additional toolbar options - include | to separate, by default this contains 'urlimage'
                      for image insertion
@@ -48,6 +48,7 @@ MooEditable Textarea
     * Controlled in app.yml and can be overridden locally
     * Controls default height and width
     * Controls base CSS for the editable area
+    * Controls whether CleanPaste included
 
 
   Enhanced string validator:

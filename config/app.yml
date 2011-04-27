@@ -1,7 +1,7 @@
 all:
   mooeditable:
     base_css:               'html { cursor: text; } body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 13px; }'
-    default_width:          600
+    default_width:          660
     default_height:         400
     include_clean_paste:    true
     
