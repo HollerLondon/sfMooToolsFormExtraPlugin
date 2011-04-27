@@ -37,7 +37,7 @@ provides: [MooEditable.CleanPaste]
     
     MooEditable = Class.refactor(MooEditable, {
       
-        // FIXME: Removed because inferred by above and breaks MooEditable completely.
+        // @FIXED: Removed because inferred by above and breaks MooEditable completely.
         // Extends: MooEditable,
         
         attach: function(){
@@ -52,6 +52,12 @@ provides: [MooEditable.CleanPaste]
                 window.clipboardData && window.clipboardData.getData ?
                 window.clipboardData.getData('Text') : // MS
                 false;
+            
+            // @FIXED: If !MS and data is not html - try this (ie. pasting plain text)
+            if ((!txtPastet || '' == txtPastet.trim()) && e.clipboardData && e.clipboardData.getData) {
+              var txtPastet = e.clipboardData.getData('Text');
+            }
+            
             if(!!txtPastet) {
                 this.selection.insertContent(this.cleanHtml(txtPastet));
                 new Event(e).stop();
@@ -69,69 +75,26 @@ provides: [MooEditable.CleanPaste]
             var txtPastet = this.doc.body.get('html');
             var txtPastetClean = this.cleanHtml(txtPastet);
             this.doc.body.set('html', this.txtMarked);
-    		var node = this.doc.body.getElementById('INSERTION_MARKER'); 
-			this.selection.selectNode(node);
+    		    var node = this.doc.body.getElementById('INSERTION_MARKER'); 
+			      this.selection.selectNode(node);
             this.selection.insertContent(txtPastetClean);
             return this;
         },
         
         cleanHtml: function(html){
           
-            // FIXME: safari pastes in styles with ' not " - fixed to not be borken in safari
+            // @FIXED: Safari pastes in styles with ' not " - fixed to not be borken in safari
+            // @FIXED: Word pastes in Safari
           
-            html = html.replace(/<o:p>\s*<\/o:p>/g, '');
-            html = html.replace(/<o:p>[\s\S]*?<\/o:p>/g, '&nbsp;');
-            
-            // remove mso-xxx styles.
-            html = html.replace(/\s*mso-[^:]+:[^;"']+;?/gi, '');
-            
-            // remove margin styles.
-            html = html.replace(/\s*MARGIN: 0cm 0cm 0pt\s*;/gi, '');
-            html = html.replace(/\s*MARGIN: 0cm 0cm 0pt\s*"/gi, "\"");
-            
-            html = html.replace(/\s*TEXT-INDENT: 0cm\s*;/gi, '');
-            html = html.replace(/\s*TEXT-INDENT: 0cm\s*"/gi, "\"");
-            
-            html = html.replace(/\s*TEXT-ALIGN: [^\s;]+;?"/gi, "\"");
-            
-            html = html.replace(/\s*PAGE-BREAK-BEFORE: [^\s;]+;?"/gi, "\"");
-            
-            html = html.replace(/\s*FONT-VARIANT: [^\s;]+;?"/gi, "\"");
-            
-            html = html.replace(/\s*tab-stops:[^;"']*;?/gi, '');
-            html = html.replace(/\s*tab-stops:[^"']*/gi, '');
-            
-            // remove FONT face attributes.
-            html = html.replace(/\s*face="[^"']*"/gi, '');
-            html = html.replace(/\s*face=[^ >]*/gi, '');
-            
-            html = html.replace(/\s*FONT-FAMILY:[^;"']*;?/gi, '');
-            html = html.replace(/\s*FONT-SIZE:[^;"']*;?/gi, '');
-            
-            // remove class attributes
-            html = html.replace(/<(\w[^>]*) class=([^ |>]*)([^>]*)/gi, "<$1$3");
-            
-            // remove styles.
-            html = html.replace(/<(\w[^>]*) style="([^\"']*)"([^>]*)/gi, "<$1$3");
-            
+            // remove body and html tag
+            html = html.replace(/<html[^>]*?>(.*)/gim, "$1");
+            html = html.replace(/<\/html>/gi, '');
+            html = html.replace(/<body[^>]*?>(.*)/gi, "$1");
+            html = html.replace(/<\/body>/gi, '');
+          
             // remove style, meta and link tags
-            html = html.replace(/<STYLE[^>]*?>[\s\S]*?<\/STYLE[^>]*>/gi, '');
-            html = html.replace(/<(?:META|LINK)[^>]*>\s*/gi, '');
-            
-            // remove empty styles.
-            html = html.replace(/\s*style="\s*"/gi, '');
-            html = html.replace(/\s*style='\s*'/gi, '');
-            
-            html = html.replace(/<SPAN\s*[^>]*>\s*&nbsp;\s*<\/SPAN>/gi, '&nbsp;');
-            
-            html = html.replace(/<SPAN\s*[^>]*><\/SPAN>/gi, '');
-            
-            // remove lang attributes
-            html = html.replace(/<(\w[^>]*) lang=([^ |>]*)([^>]*)/gi, "<$1$3");
-            
-            html = html.replace(/<SPAN\s*>([\s\S]*?)<\/SPAN>/gi, '$1');
-            
-            html = html.replace(/<FONT\s*>([\s\S]*?)<\/FONT>/gi, '$1');
+            html = html.replace(/<style[^>]*?>[\s\S]*?<\/style[^>]*>/gi, '');
+            html = html.replace(/<(?:meta|link)[^>]*>\s*/gi, '');
             
             // remove XML elements and declarations
             html = html.replace(/<\\?\?xml[^>]*>/gi, '');
@@ -140,17 +103,68 @@ provides: [MooEditable.CleanPaste]
             html = html.replace(/<w:[^>]*>[\s\S]*?<\/w:[^>]*>/gi, '');
             
             // remove tags with XML namespace declarations: <o:p><\/o:p>
+            html = html.replace(/<o:p>\s*<\/o:p>/g, '');
+            html = html.replace(/<o:p>[\s\S]*?<\/o:p>/g, '&nbsp;');
             html = html.replace(/<\/?\w+:[^>]*>/gi, '');
             
             // remove comments [SF BUG-1481861].
             html = html.replace(/<\!--[\s\S]*?-->/g, '');
+            html = html.replace(/<\!\[[\s\S]*?\]>/g, '');
             
-            html = html.replace(/<(U|I|STRIKE)>&nbsp;<\/\1>/g, '&nbsp;');
+            // remove mso-xxx styles.
+            html = html.replace(/\s*mso-[^:]+:[^;"']+;?/gi, '');
             
-            html = html.replace(/<H\d>\s*<\/H\d>/gi, '');
+            // remove styles.
+            html = html.replace(/<(\w[^>]*) style='([^\']*)'([^>]*)/gim, "<$1$3");
+            html = html.replace(/<(\w[^>]*) style="([^\"]*)"([^>]*)/gim, "<$1$3");
+            
+            // remove margin styles.
+            html = html.replace(/\s*margin: 0cm 0cm 0pt\s*;/gi, '');
+            html = html.replace(/\s*margin: 0cm 0cm 0pt\s*"/gi, "\"");
+            
+            html = html.replace(/\s*text-indent: 0cm\s*;/gi, '');
+            html = html.replace(/\s*text-indent: 0cm\s*"/gi, "\"");
+            
+            html = html.replace(/\s*text-align: [^\s;]+;?"/gi, "\"");
+            
+            html = html.replace(/\s*page-break-before: [^\s;]+;?"/gi, "\"");
+            
+            html = html.replace(/\s*font-variant: [^\s;]+;?"/gi, "\"");
+            
+            html = html.replace(/\s*tab-stops:[^;"']*;?/gi, '');
+            html = html.replace(/\s*tab-stops:[^"']*/gi, '');
+            
+            // remove font face attributes.
+            html = html.replace(/\s*face="[^"']*"/gi, '');
+            html = html.replace(/\s*face=[^ >]*/gi, '');
+            
+            html = html.replace(/\s*font-family:[^;"']*;?/gi, '');
+            html = html.replace(/\s*font-size:[^;"']*;?/gi, '');
+            
+            // remove class attributes
+            html = html.replace(/<(\w[^>]*) class=([^ |>]*)([^>]*)/gi, "<$1$3");
+            
+            // remove empty styles.
+            html = html.replace(/\s*style='\s*'/gi, '');
+            html = html.replace(/\s*style="\s*"/gi, '');
+            
+            html = html.replace(/<span\s*[^>]*>\s*&nbsp;\s*<\/span>/gi, '&nbsp;');
+            
+            html = html.replace(/<span\s*[^>]*><\/span>/gi, '');
+            
+            // remove lang attributes
+            html = html.replace(/<(\w[^>]*) lang=([^ |>]*)([^>]*)/gi, "<$1$3");
+            
+            html = html.replace(/<span([^>]*)>([\s\S]*?)<\/span>/gi, '$2');
+            
+            html = html.replace(/<font\s*>([\s\S]*?)<\/font>/gi, '$1');
+            
+            html = html.replace(/<(u|i|strike)>&nbsp;<\/\1>/gi, '&nbsp;');
+            
+            html = html.replace(/<h\d>\s*<\/h\d>/gi, '');
             
             // remove "display:none" tags.
-            html = html.replace(/<(\w+)[^>]*\sstyle="[^"']*DISPLAY\s?:\s?none[\s \S]*?<\/\1>/ig, '');
+            html = html.replace(/<(\w+)[^>]*\sstyle="[^"']*display\s?:\s?none[\s \S]*?<\/\1>/ig, '');
             
             // remove language tags
             html = html.replace(/<(\w[^>]*) language=([^ |>]*)([^>]*)/gi, "<$1$3");
@@ -160,11 +174,15 @@ provides: [MooEditable.CleanPaste]
             html = html.replace(/<(\w[^>]*) onmouseout="([^\"']*)"([^>]*)/gi, "<$1$3");
             
             // the original <Hn> tag send from word is something like this: <Hn style="margin-top:0px;margin-bottom:0px">
-            html = html.replace(/<H(\d)([^>]*)>/gi, '<h$1>');
+            html = html.replace(/<h(\d)([^>]*)>/gi, '<h$1>');
             
             // word likes to insert extra <font> tags, when using IE. (Wierd).
-            html = html.replace(/<(H\d)><FONT[^>]*>([\s\S]*?)<\/FONT><\/\1>/gi, '<$1>$2<\/$1>');
-            html = html.replace(/<(H\d)><EM>([\s\S]*?)<\/EM><\/\1>/gi, '<$1>$2<\/$1>');
+            html = html.replace(/<(h\d)><font[^>]*>([\s\S]*?)<\/font><\/\1>/gi, '<$1>$2<\/$1>');
+            html = html.replace(/<(h\d)><em>([\s\S]*?)<\/em><\/\1>/gi, '<$1>$2<\/$1>');
+            
+            // i -> em, b -> strong
+            html = html.replace(/<b\b[^>]*>(.*?)<\/b[^>]*>/gi, '<strong>$1</strong>')
+            html = html.replace(/<i\b[^>]*>(.*?)<\/i[^>]*>/gi, '<em>$1</em>')
             
             // remove "bad" tags
             html = html.replace(/<\s+[^>]*>/gi, '');
@@ -178,8 +196,14 @@ provides: [MooEditable.CleanPaste]
             // Convert <p> to <br />
             if (!this.options.paragraphise) {
                 html.replace(/<p>/gi, '<br />');
-                html.replace(/<\\p>/gi, '');
+                html.replace(/<\/p>/gi, '');
             }
+            
+            // Make it valid xhtml
+            html = html.replace('/<br>/gi', '<br />');
+            
+            // remove <br>'s that end a paragraph here.
+            html = html.replace(/<br[^>]*><\/p>/gim, '</p>'); 
             
             return html.trim();
         }
