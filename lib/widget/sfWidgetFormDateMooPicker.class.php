@@ -26,7 +26,7 @@ class sfWidgetFormDateMooPicker extends sfWidgetForm
    *
    * Available options:
    *
-   * * locale: defaults to en-GB - if this is changed, will require additional locale JS files
+   * * locale: defaults to en-GB in config/app.yml - if this is changed, will require additional locale JS files
    * * min_date: default is none, set to restrict date range (format: Y-m-d)
    * * max_date: default is none, set to restrict date range (format: Y-m-d)
    * * date_widget: The date widget to render with the calendar
@@ -38,7 +38,7 @@ class sfWidgetFormDateMooPicker extends sfWidgetForm
    */
   protected function configure($options = array(), $attributes = array())
   {
-  	$this->addOption('locale', 'en-GB');
+  	$this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
     $this->addOption('min_date', 'null');
     $this->addOption('max_date', 'null');
     $this->addOption('date_widget', new sfWidgetFormDate(array('format'=>'%day% %month% %year%')));
@@ -78,7 +78,7 @@ class sfWidgetFormDateMooPicker extends sfWidgetForm
     maxDate: '%s',
     toggle: $('%s_control'),
     positionOffset: {x: 5, y: 0},
-    pickerClass: 'datepicker_dashboard',
+    pickerClass: '%s',
     useFadeInOut: !Browser.ie,
     onSelect: function(date){
         $('%s_day').set('value', date.get('date'));
@@ -90,17 +90,21 @@ class sfWidgetFormDateMooPicker extends sfWidgetForm
 EOF
      ,
       $this->getOption('locale'),
-      $this->generateId($name),
+      $this->generateId($name),  // target element
       $default_date_format,
       $this->getOption('min_date'),
       $this->getOption('max_date'),
-      $this->generateId($name),
-      $this->generateId($name),
-      $this->generateId($name),
-      $this->generateId($name)
+      $this->generateId($name),  // toggle calendar control
+      sfConfig::get('app_datepicker_picker_class'),
+      $this->generateId($name),  // day
+      $this->generateId($name),  // month
+      $this->generateId($name)   // year
      );
      
-     $toggle = '<img src="/sfMooToolsFormExtraPlugin/css/Datepicker/datepicker_dashboard/icon_calendar.gif" class="datepicker_calendar" alt="Calendar" id="'.$this->generateId($name).'_control" />';
+     $toggle = sprintf('<img src="%/s%s/icon_calendar.gif" class="datepicker_calendar" alt="Calendar" id="%s_control" />',
+                sfConfig::get('app_datepicker_base_css_location'),
+                sfConfig::get('app_datepicker_picker_class'),
+                $this->generateId($name));
      
      return $input.$toggle.$js;
   }
@@ -109,20 +113,23 @@ EOF
   /**
    * Include Datepicker Javascript
    * 
-   * Requires MooTools.More:
+   * Requires MooTools.Core AND MooTools.More:
    *  More/Date 
    *  More/Date.Extras 
    *  More/Locale 
-   *  More/Locale.en-GB.Date
+   *  More/Locale.[REQUIRED_LOCALE(S)].Date
    */
   public function getJavaScripts() 
   {
+    $localeJs = sprintf('%s/Locale.%s.DatePicker.js',
+                    sfConfig::get('app_datepick_js_locale_location'),
+                    $this->getOption('locale'));
+    
     return array(
-            //'/sfMooToolsFormExtraPlugin/js/mootools-more.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Attach.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Date.js',
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/Locale.en-GB.DatePicker.js'
+            $localeJs
     );
   }
 
@@ -132,6 +139,11 @@ EOF
    */
   public function getStylesheets()
   {
-    return array('/sfMooToolsFormExtraPlugin/css/Datepicker/datepicker_dashboard/datepicker_dashboard.css' => 'screen');
+    $cssFile = sprintf('%s/%s/%s.css', 
+                sfConfig::get('app_datepicker_base_css_location'),
+                sfConfig::get('app_datepicker_picker_class'),
+                sfConfig::get('app_datepicker_picker_class'));
+    
+    return array($cssFile => 'screen');
   }
 }

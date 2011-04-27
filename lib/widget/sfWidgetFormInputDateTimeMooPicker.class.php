@@ -27,7 +27,7 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
    *
    * Available options:
    *
-   * * locale: defaults to en-GB - if this is changed, will require additional locale JS files
+   * * locale: defaults to en-GB in config/app.yml - if this is changed, will require additional locale JS files
    * * with_time: include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
    * * min_date: default is none, set to restrict date range (format: same as the date_format)
    * * max_date: default is none, set to restrict date range (format: same as the date_format)
@@ -39,7 +39,7 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
    */
   protected function configure($options = array(), $attributes = array())
   {
-  	$this->addOption('locale', 'en-GB');
+  	$this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
     $this->addOption('with_time', 'false');
     $this->addOption('min_date', 'null');
     $this->addOption('max_date', 'null');
@@ -76,7 +76,7 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
     minDate: '%s',
     maxDate: '%s',
     positionOffset: {x: 5, y: 0},
-    pickerClass: 'datepicker_dashboard',
+    pickerClass: '%s',
     useFadeInOut: !Browser.ie
   });
 </script>
@@ -87,7 +87,8 @@ EOF
       $default_date_format,
       $this->getOption('with_time'),
       $this->getOption('min_date'),
-      $this->getOption('max_date')
+      $this->getOption('max_date'),
+      sfConfig::get('app_datepicker_picker_class')
      );
      
      return $input.$js;
@@ -97,20 +98,23 @@ EOF
   /**
    * Include Datepicker Javascript
    * 
-   * Requires MooTools.More:
+   * Requires MooTools.Core AND MooTools.More:
    *  More/Date 
    *  More/Date.Extras 
    *  More/Locale 
-   *  More/Locale.en-GB.Date
+   *  More/Locale.[REQUIRED_LOCALE(S)].Date
    */
   public function getJavaScripts() 
   {
+    $localeJs = sprintf('%s/Locale.%s.DatePicker.js',
+                    sfConfig::get('app_datepick_js_locale_location'),
+                    $this->getOption('locale'));
+    
     return array(
-            //'/sfMooToolsFormExtraPlugin/js/mootools-more.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Attach.js',
             '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Date.js',
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/Locale.en-GB.DatePicker.js'
+            $localeJs
     );
   }
 
@@ -120,6 +124,11 @@ EOF
    */
   public function getStylesheets()
   {
-    return array('/sfMooToolsFormExtraPlugin/css/Datepicker/datepicker_dashboard/datepicker_dashboard.css' => 'screen');
+    $cssFile = sprintf('%s/%s/%s.css', 
+                sfConfig::get('app_datepicker_base_css_location'),
+                sfConfig::get('app_datepicker_picker_class'),
+                sfConfig::get('app_datepicker_picker_class'));
+    
+    return array($cssFile => 'screen');
   }
 }

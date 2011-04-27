@@ -1,0 +1,13 @@
+all:
+  mooeditable:
+    base_css:               'html { cursor: text; } body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 13px; }'
+    default_width:          600
+    default_height:         400
+    include_clean_paste:    true
+    
+  datepicker:
+    default_locale:         en-GB
+    picker_class:           datepicker_dashboard
+    base_css_location:      '/sfMooToolsFormExtraPlugin/css/Datepicker'       # Location of default CSS theme files
+    js_locale_location:     '/sfMooToolsFormExtraPlugin/js/Datepicker'        # Location of locale files for Datepicker 
+                                                                              # (plugin just contains default - if overriding include default in this location too)

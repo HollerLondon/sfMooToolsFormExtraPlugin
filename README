@@ -38,10 +38,16 @@ MooEditable Textarea
   All configuration options:
   
      * config: Additional MooEditable configuration
-     * width: The width of the editable area, defaults to 500px
-     * height: The height of the editable area, defaults to 200px
+     * width: The width of the editable area, defaults to 600px
+     * height: The height of the editable area, defaults to 400px
      * extratoolbar: Any additional toolbar options - include | to separate, by default this contains 'urlimage'
                      for image insertion
+
+  Default configuration:
+  
+    * Controlled in app.yml and can be overridden locally
+    * Controls default height and width
+    * Controls base CSS for the editable area
 
 
   Enhanced string validator:
@@ -69,6 +75,12 @@ Datepicker - input box with calendar control on input click
     * with_time: include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
     * min_date: default is none, set to restrict date range (format: same as the date_format)
     * max_date: default is none, set to restrict date range (format: same as the date_format)
+
+  Default configuration:
+  
+    * Controlled in app.yml and can be overridden locally
+    * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
+    * Controls the theme and location of the theme CSS files and images
 
 
   Example usage:
@@ -106,6 +118,12 @@ Datepicker - dropdowns with calendar control on image click
       * min_date: default is none, set to restrict date range (format: Y-m-d)
       * max_date: default is none, set to restrict date range (format: Y-m-d)
       * date_time_widget: The datetime widget to render with the calendar
+    
+  Default configuration:
+  
+    * Controlled in app.yml and can be overridden locally
+    * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
+    * Controls the theme and location of the theme CSS files and images
     
     
   Example usage:

@@ -38,8 +38,8 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
    */
   protected function configure($options = array(), $attributes = array())
   {
-  	$this->addOption('width', '660');
-  	$this->addOption('height', '400');
+  	$this->addOption('width', sfConfig::get('app_mooeditable_default_width'));
+  	$this->addOption('height', sfConfig::get('app_mooeditable_default_height'));
     $this->addOption('config', '');
     $this->addOption('extratoolbar', 'urlimage');
     
@@ -69,7 +69,7 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
     $('%s').mooEditable( { 
       dimensions: { x: %s, y: %s },
       actions: 'bold italic underline | insertunorderedlist insertorderedlist | undo redo | createlink unlink | %s toggleview',
-      baseCSS: 'html { cursor: text; } body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 13px; }',
+      baseCSS: '%s',
       %s
     } );
   });
@@ -80,6 +80,7 @@ EOF
       $this->getOption('width'),
       $this->getOption('height'),
       $extraOptions,
+      sfConfig::get('app_mooeditable_base_css'),
       $this->getOption('config')
      );
      
@@ -97,10 +98,14 @@ EOF
    */
   public function getJavaScripts() 
   {
-    return array(
-      '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.js',
-      '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.CleanPaste.js',
-    );
+    $js = array('/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.js');
+    
+    if (sfConfig::get('app_mooeditable_include_clean_paste'))
+    {
+      $js[] = '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.CleanPaste.js';
+    }
+    
+    return $js;
   }
 
   
