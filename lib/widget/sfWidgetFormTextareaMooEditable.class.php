@@ -16,10 +16,10 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
    *
    * Available options: (defaults set in plugin app.yml)
    *
-   *  * config: Additional MooEditable configuration
-   *  * width: The width of the editable area
-   *  * height: The height of the editable area
-   *  * extratoolbar: Any additional toolbar options - include | to separate
+   *  * config:           Additional MooEditable configuration
+   *  * width:            The width of the editable area
+   *  * height:           The height of the editable area
+   *  * extratoolbar:     Any additional toolbar options - include | to separate
    *
    * @param array $options     An array of options
    * @param array $attributes  An array of default HTML attributes
@@ -85,7 +85,8 @@ EOF
    * Requires MooTools.More:
    *  More/Class.Refactor 
    *  More/Locale 
-   *  More/Locale.en-GB.Date
+   *  
+   * @return string[]
    */
   public function getJavaScripts() 
   {
@@ -106,6 +107,8 @@ EOF
   
   /**
    * Include MooEditable Stylesheet
+   * 
+   * @return string[]
    */
   public function getStylesheets()
   {

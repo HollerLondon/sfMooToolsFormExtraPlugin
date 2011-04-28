@@ -18,11 +18,16 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
    * 
    * Available options:
    *
-   * * locale: if this is changed from the default, will require additional JS locale files
-   * * with_time: defaults to false, include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
-   * * year_picker: defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
-   * * min_date: default is none, set to restrict date range (format: see above)
-   * * max_date: default is none, set to restrict date range (format: see above)
+   * * locale:          if this is changed from the default, will require additional JS locale files
+   * * date_format:     The JavaScript format of the date in the input box (defaults to %Y-%m-%d - see below) - see http://mootools.net/docs/more/Types/Date#Date:format.
+   *                    If this is changed should be paired with appropriate sfValidatorDate and regex - see README. 
+   *                    Ensure includes time if below option is 'true'
+   * * php_date_format: If the date_format for display is changed to a more user friendly format than %Y-%m-%d - the value needs to be converted from the database format
+   *                    This field should contain the corresponding PHP date_format for use with date() - see http://uk.php.net/manual/en/function.date.php
+   * * with_time:       defaults to 'false', include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
+   * * year_picker:     defaults to 'true', click on the month name twice to select year - if date range restricted within one year then set to 'false'
+   * * min_date:        default is none, set to restrict date range (format: see above)
+   * * max_date:        default is none, set to restrict date range (format: see above)
    *
    * @param array $options     An array of options
    * @param array $attributes  An array of default HTML attributes
@@ -31,7 +36,9 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
    */
   protected function configure($options = array(), $attributes = array())
   {
-  	$this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
+    $this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
+    $this->addOption('date_format', null);
+    $this->addOption('php_date_format', null);
     $this->addOption('with_time', 'false');
     $this->addOption('year_picker', 'true');
     $this->addOption('min_date', 'null');
@@ -53,11 +60,26 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-  	if (!isset($attributes['style'])) $attributes['style'] = 'width:auto !important;';
-  	
-    $input = parent::render($name, $value, $attributes, $errors);
+    $date_format = $this->getOption('date_format');
     
-    $default_date_format = ('true' == $this->getOption('with_time') ? '%Y-%m-%d %H:%M' : '%Y-%m-%d');
+    if (is_null($date_format)) 
+    {
+      $date_format = ('true' == $this->getOption('with_time') ? '%Y-%m-%d %H:%M' : '%Y-%m-%d');
+    }
+    else 
+    {
+      // $value needs to be converted from Y-m-d into new format for display
+      $php_date_format = $this->getOption('php_date_format');
+      
+      // If not supplied try to convert from JS format - NOT RECOMMENDED
+      if (is_null($php_date_format)) $php_date_format = str_replace('%','',$date_format);
+      
+      $value = date($php_date_format, strtotime($value));
+    }
+    
+    if (!isset($attributes['style'])) $attributes['style'] = 'width:auto !important;';
+    
+    $input = parent::render($name, $value, $attributes, $errors);
     
     $js = sprintf(<<<EOF
 <script type="text/javascript">
@@ -77,7 +99,7 @@ EOF
      ,
       $this->getOption('locale'),
       $this->generateId($name),
-      $default_date_format,
+      $date_format,
       $this->getOption('with_time'),
       $this->getOption('year_picker'),
       $this->getOption('min_date'),
@@ -90,13 +112,15 @@ EOF
 
 
   /**
-   * Include Datepicker Javascript
+   * Include Datepicker Javascripts
    * 
    * Requires MooTools.Core AND MooTools.More:
    *  More/Date 
    *  More/Date.Extras 
    *  More/Locale 
    *  More/Locale.[REQUIRED_LOCALE(S)].Date
+   *  
+   * @return string[]
    */
   public function getJavaScripts() 
   {
@@ -115,6 +139,8 @@ EOF
   
   /**
    * Include Datepicker Stylesheet
+   * 
+   * @return string[]
    */
   public function getStylesheets()
   {

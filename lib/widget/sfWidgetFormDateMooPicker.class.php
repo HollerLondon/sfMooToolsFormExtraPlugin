@@ -18,11 +18,11 @@ class sfWidgetFormDateMooPicker extends sfWidgetForm
    *
    * Available options:
    *
-   * * locale: if this is changed from the default, will require additional locale JS files
-   * * year_picker: defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
-   * * min_date: default is none, set to restrict date range (format: Y-m-d)
-   * * max_date: default is none, set to restrict date range (format: Y-m-d)
-   * * date_widget: The date widget to render with the calendar
+   * * locale:          if this is changed from the default, will require additional locale JS files
+   * * year_picker:     defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
+   * * min_date:        default is none, set to restrict date range (format: Y-m-d)
+   * * max_date:        default is none, set to restrict date range (format: Y-m-d)
+   * * date_widget:     The date widget to render with the calendar
    *
    * @param array $options     An array of options
    * @param array $attributes  An array of default HTML attributes
@@ -112,13 +112,15 @@ EOF
 
 
   /**
-   * Include Datepicker Javascript
+   * Include Datepicker Javascripts
    * 
    * Requires MooTools.Core AND MooTools.More:
    *  More/Date 
    *  More/Date.Extras 
    *  More/Locale 
    *  More/Locale.[REQUIRED_LOCALE(S)].Date
+   *  
+   * @return string[]
    */
   public function getJavaScripts() 
   {
@@ -137,6 +139,8 @@ EOF
   
   /**
    * Include Datepicker Stylesheet
+   * 
+   * @return string[]
    */
   public function getStylesheets()
   {
