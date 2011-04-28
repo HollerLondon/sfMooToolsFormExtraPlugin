@@ -125,7 +125,7 @@ EOF
   public function getJavaScripts() 
   {
     $localeJs = sprintf('%s/Locale.%s.DatePicker.js',
-                    sfConfig::get('app_datepick_js_locale_location'),
+                    sfConfig::get('app_datepicker_js_locale_location'),
                     $this->getOption('locale'));
     
     return array(
