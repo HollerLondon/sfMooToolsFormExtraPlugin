@@ -11,7 +11,19 @@ Introduction
 
 This plugin contains several widgets (and a validator) for use with the [MooTools](http://mootools.net/) javascript framework.
 
-Be sure to ./symfony plugin:publish-assets after installation to ensure all the Javascript and Stylesheet files are in place
+Be sure to ./symfony plugin:publish-assets after installation to ensure all the JavaScript and Stylesheet files are in place
+
+
+Credits:
+--------
+
+* [MooEditable](http://mootools.net/forge/p/mooeditable) - Lim Chee Aun, Radovan Lozej, Ryan Mitchell, Olivier Refalo and T.J. Leahy
+
+NOTE: MooEditable.CleanPaste JS has been altered from version provided with MooEditable to fix bugs with Safari
+
+* [Datepicker](http://mootools.net/forge/p/mootools_datepicker) - Arian Stolwijk
+
+NOTE: Default Datepicker 'datepicker_dashboard' theme has been altered from the orginal to be lighter
 
 
 Javascript Pre-requisites
@@ -30,56 +42,62 @@ Javascript Pre-requisites
      * More/Locale.en-GB.Date
 
 
+Enhanced String Validator
+-------------------------
+  
+ * Adds %current_length% to the options for the validator messages
+ * Strips HTML tags before calculating length, but returns the string with HTML
+ * Can be used in conjunction with other validators
+
+### Example usage: ###
+
+  Default implementation:
+    
+      $this->validatorSchema['text'] = new sfEnhancedValidatorString(array('max_length'=>200), 
+                                                                     array('max_length'=>'Content is too long (%current_length% characters), please limit to %max_length% characters'));
+
 MooEditable Textarea
 --------------------
 
 All configuration options:
 
  * config: Additional MooEditable configuration
- * width: The width of the editable area, defaults to 660px
- * height: The height of the editable area, defaults to 400px
- * extratoolbar: Any additional toolbar options - include | to separate, by default this contains 'urlimage'
-                  for image insertion
+ * width: The width of the editable area
+ * height: The height of the editable area
+ * extratoolbar: Any additional toolbar options - include | to separate
 
 Default configuration (controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml):
 
- * Controls default height and width
+ * Controls all default configuration options
  * Controls base CSS for the editable area
  * Controls whether CleanPaste included (by default)
  * Controls base toolbar options, and allows extra CSS and JS to be added if the default toolbar for all widgets is changed
-
-Enhanced string validator:
-  
- * Adds %current_length% to the options for the validator messages
- * Strips HTML tags before calculating length, but returns the string with HTML
- * Can be used in conjunction with other validators
 
 
 ### Example usage: ###
 
 ![mooeditable.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/mooeditable.png)
 
-  Default implementation, with enhanced validator:
+  Default implementation:
     
-      $this->widgetSchema['summary'] = new sfWidgetFormTextareaMooEditable();
-      $this->validatorSchema['summary'] = new sfEnhancedValidatorString(array('max_length'=>200), 
-                                                                        array('max_length'=>'Content is too long (%current_length% characters), please limit to %max_length% characters'));
+      $this->widgetSchema['text'] = new sfWidgetFormTextareaMooEditable();
 
 
 Datepicker - input box with calendar control on input click
 -----------------------------------------------------------
 
-All configuration options:
-
- * locale: defaults to en-GB - if this is changed, will require additional JS locale files
- * with_time: include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
- * min_date: default is none, set to restrict date range (format: same as the date_format)
- * max_date: default is none, set to restrict date range (format: same as the date_format)
-
 Default configuration (controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml):
 
  * Controls locale (defaults to en-GB), and location of locale files - must include all locales if local files
  * Controls the theme and location of the theme CSS files and images
+
+Widget configuration options:
+
+ * locale: if this is changed from the default, will require additional JS locale files
+ * with_time: include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d to validate with sfValidatorDate)
+ * year_picker: defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
+ * min_date: default is none, set to restrict date range (format: see above)
+ * max_date: default is none, set to restrict date range (format: see above)
 
 
 ### Example usage: ###
@@ -104,26 +122,28 @@ Default configuration (controlled in plugins/sfMooToolsFormExtraPlugin/config/ap
 Datepicker - dropdowns with calendar control on image click
 -----------------------------------------------------------
 
-All configuration options:
+Default configuration (controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml):
+
+ * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
+ * Controls the theme and location of the theme CSS files and images
+
+Widget configuration options:
 
 (date):
 
- * locale: defaults to en-GB - if this is changed, will require additional JS locale files
+ * locale: if this is changed from the default, will require additional JS locale files
+ * year_picker: defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
  * min_date: default is none, set to restrict date range (format: Y-m-d)
  * max_date: default is none, set to restrict date range (format: Y-m-d)
  * date_widget: The date widget to render with the calendar
 
 (datetime):
 
- * locale: defaults to en-GB - if this is changed, will require additional JS locale files
+ * locale: if this is changed from the default, will require additional JS locale files
+ * year_picker: defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
  * min_date: default is none, set to restrict date range (format: Y-m-d)
  * max_date: default is none, set to restrict date range (format: Y-m-d)
  * date_time_widget: The datetime widget to render with the calendar
-  
-Default configuration (controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml):
-
- * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
- * Controls the theme and location of the theme CSS files and images
     
     
 ### Example usage: ###

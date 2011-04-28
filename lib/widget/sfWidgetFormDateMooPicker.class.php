@@ -1,12 +1,4 @@
 <?php
-/*
- * This file is part of the symfony package.
- * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
- * 
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 /**
  * sfWidgetFormDateMooPicker represents a series of HTML select tags with an attached Javscript Datepicker.
  * 
@@ -15,18 +7,19 @@
  * @package    symfony
  * @subpackage widget
  * @author     Jo Carter <jocarter@holler.co.uk>
- * @version    SVN: $Id: sfWidgetFormDateMooPicker.class.php 30762 2010-08-25 12:33:33Z fabien $
+ * @version    SVN: $Id: sfWidgetFormDateMooPicker.class.php 30762 2010-08-25 12:33:33Z jocarter $
  */
 class sfWidgetFormDateMooPicker extends sfWidgetForm
 {
   /**
    * Constructor.
    * 
-   * NOTE: Default locale is en-GB, and date defaults have to match DB format to validate
+   * NOTE: Default locale is en-GB (in plugin app.yml), and date defaults have to match DB format to validate with sfValidatorDate
    *
    * Available options:
    *
-   * * locale: defaults to en-GB in config/app.yml - if this is changed, will require additional locale JS files
+   * * locale: if this is changed from the default, will require additional locale JS files
+   * * year_picker: defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
    * * min_date: default is none, set to restrict date range (format: Y-m-d)
    * * max_date: default is none, set to restrict date range (format: Y-m-d)
    * * date_widget: The date widget to render with the calendar
@@ -39,9 +32,10 @@ class sfWidgetFormDateMooPicker extends sfWidgetForm
   protected function configure($options = array(), $attributes = array())
   {
   	$this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
+  	$this->addOption('year_picker', 'true');
     $this->addOption('min_date', 'null');
     $this->addOption('max_date', 'null');
-    $this->addOption('date_widget', new sfWidgetFormDate(array('format'=>'%day% %month% %year%')));
+    $this->addOption('date_widget', new sfWidgetFormDate(array('format'=>sfConfig::get('app_datepicker_default_date_display_format'))));
     
     parent::configure($options, $attributes);
   }
@@ -59,13 +53,19 @@ class sfWidgetFormDateMooPicker extends sfWidgetForm
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    $default_date_format = '%Y-%m-%d';
+    
   	if (!isset($attributes['style'])) $attributes['style'] = 'width:auto !important;';
   	
     $input = $this->getOption('date_widget')->render($name, $value, $attributes, $errors);
     
-    $input .= $this->renderTag('input', array('type' => 'hidden', 'size' => 10, 'id' => $this->generateId($name), 'disabled' => 'disabled', 'value'=>$value));
+    // Check that supplied default is in the DB date format - and parse correctly if supplied as a Unix timestamp
+    if (!empty($value))
+    {
+      if (is_int($value)) $value = date('Y-m-d', $value);
+    }
     
-    $default_date_format = '%Y-%m-%d';
+    $input .= $this->renderTag('input', array('type' => 'hidden', 'size' => 10, 'id' => $this->generateId($name), 'disabled' => 'disabled', 'value'=>$value));
     
     $js = sprintf(<<<EOF
 <script type="text/javascript">
@@ -73,7 +73,7 @@ class sfWidgetFormDateMooPicker extends sfWidgetForm
   new Picker.Date($('%s'), {
     format: '%s',
     timePicker: false,
-    yearPicker: true,
+    yearPicker: %s,
     minDate: '%s',
     maxDate: '%s',
     toggle: $('%s_control'),
@@ -92,6 +92,7 @@ EOF
       $this->getOption('locale'),
       $this->generateId($name),  // target element
       $default_date_format,
+      $this->getOption('year_picker'),
       $this->getOption('min_date'),
       $this->getOption('max_date'),
       $this->generateId($name),  // toggle calendar control

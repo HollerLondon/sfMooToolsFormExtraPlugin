@@ -6,7 +6,7 @@
  * @package    symfony
  * @subpackage widget
  * @author     Jo Carter <jocarter@holler.co.uk>
- * @version    SVN: $Id: sfEnhancedValidatorString.class.php 30762 2010-08-25 12:33:33Z fabien $
+ * @version    SVN: $Id: sfEnhancedValidatorString.class.php 30762 2010-08-25 12:33:33Z jocarter $
  */
 class sfEnhancedValidatorString extends sfValidatorString 
 {

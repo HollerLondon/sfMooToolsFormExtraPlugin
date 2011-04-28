@@ -1,13 +1,4 @@
 <?php
-
-/*
- * This file is part of the symfony package.
- * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
- * 
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 /**
  * sfWidgetFormTextareaMooEditable represents a MooEditable widget.
  * 
@@ -23,13 +14,12 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
   /**
    * Constructor.
    *
-   * Available options:
+   * Available options: (defaults set in plugin app.yml)
    *
    *  * config: Additional MooEditable configuration
-   *  * width: The width of the editable area, defaults to 500px
-   *  * height: The height of the editable area, defaults to 200px
-   *  * extratoolbar: Any additional toolbar options - include | to separate, by default this contains 'urlimage'
-   *                  for image insertion
+   *  * width: The width of the editable area
+   *  * height: The height of the editable area
+   *  * extratoolbar: Any additional toolbar options - include | to separate
    *
    * @param array $options     An array of options
    * @param array $attributes  An array of default HTML attributes
@@ -40,8 +30,8 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
   {
   	$this->addOption('width', sfConfig::get('app_mooeditable_default_width'));
   	$this->addOption('height', sfConfig::get('app_mooeditable_default_height'));
-    $this->addOption('config', '');
-    $this->addOption('extratoolbar', 'urlimage');
+    $this->addOption('config', sfConfig::get('app_mooeditable_default_config'));
+    $this->addOption('extratoolbar', sfConfig::get('app_mooeditable_default_extra_toolbar'));
     
     parent::configure($options, $attributes);
   }

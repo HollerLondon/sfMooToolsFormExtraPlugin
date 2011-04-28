@@ -1,16 +1,33 @@
 all:
   mooeditable:
-    base_css:               'html { cursor: text; } body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 13px; }'
-    base_toolbar:           'bold italic underline | insertunorderedlist insertorderedlist | undo redo | createlink unlink'
-    default_width:          660
-    default_height:         400
-    include_clean_paste:    true
-    extra_js:               []
-    extra_css:              []
+    # Basic defaults
+    default_width:                660
+    default_height:               400
+    default_config:               ''
+    
+    # Cleans up HTML pasted from Word (other text pasted without formatting)
+    include_clean_paste:          true
+    
+    # Control tool bar options
+    base_toolbar:                 'bold italic underline | insertunorderedlist insertorderedlist | undo redo | createlink unlink'
+    default_extra_toolbar:        urlimage
+    extra_js:                     []
+    
+    # Styling options
+    base_css:                     'html { cursor: text; } body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 13px; }'
+    extra_css:                    []
     
   datepicker:
-    default_locale:         en-GB
-    picker_class:           datepicker_dashboard
-    base_css_location:      '/sfMooToolsFormExtraPlugin/css/Datepicker'       # Location of default CSS theme files
-    js_locale_location:     '/sfMooToolsFormExtraPlugin/js/Datepicker'        # Location of locale files for Datepicker 
-                                                                              # (plugin just contains default - if overriding include default in this location too)
+    # Default language for calendar picker
+    default_locale:               en-GB
+    
+    # For use with the dropdowns
+    default_date_display_format:  '%day% %month% %year%'
+    deafult_time_display_format:  '%hour% %minute%'
+    
+    # Styling options
+    picker_class:                 datepicker_dashboard
+    ## Location of default CSS theme files
+    base_css_location:            '/sfMooToolsFormExtraPlugin/css/Datepicker'   
+    ## Location of locale files for Datepicker (plugin just contains default - if overriding include default in this location too)    
+    js_locale_location:           '/sfMooToolsFormExtraPlugin/js/Datepicker'        

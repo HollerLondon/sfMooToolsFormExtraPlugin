@@ -1,12 +1,4 @@
 <?php
-/*
- * This file is part of the symfony package.
- * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
- * 
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 /**
  * sfWidgetFormDateTimeMooPicker represents an HTML input tag with an attached Javscript Datepicker.
  * 
@@ -15,22 +7,22 @@
  * @package    symfony
  * @subpackage widget
  * @author     Jo Carter <jocarter@holler.co.uk>
- * @version    SVN: $Id: sfWidgetFormInputDateTimeMooPicker.class.php 30762 2010-08-25 12:33:33Z fabien $
+ * @version    SVN: $Id: sfWidgetFormInputDateTimeMooPicker.class.php 30762 2010-08-25 12:33:33Z jocarter $
  */
 class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
 {
   /**
    * Constructor.
    * 
-   * NOTE: Default locale is en-GB, and date defaults have to match DB format to validate
-   * date_format: defaults to Y-m-d, see http://mootools.net/docs/more/Types/Date#Date:format
-   *
+   * NOTE: Default locale is en-GB (in plugin app.yml), and date defaults have to match DB format to validate with sfValidatorDate
+   * 
    * Available options:
    *
-   * * locale: defaults to en-GB in config/app.yml - if this is changed, will require additional locale JS files
-   * * with_time: include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
-   * * min_date: default is none, set to restrict date range (format: same as the date_format)
-   * * max_date: default is none, set to restrict date range (format: same as the date_format)
+   * * locale: if this is changed from the default, will require additional JS locale files
+   * * with_time: defaults to false, include time in the date picker (date format defaults to Y-m-d H:i instead of Y-m-d)
+   * * year_picker: defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
+   * * min_date: default is none, set to restrict date range (format: see above)
+   * * max_date: default is none, set to restrict date range (format: see above)
    *
    * @param array $options     An array of options
    * @param array $attributes  An array of default HTML attributes
@@ -41,6 +33,7 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
   {
   	$this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
     $this->addOption('with_time', 'false');
+    $this->addOption('year_picker', 'true');
     $this->addOption('min_date', 'null');
     $this->addOption('max_date', 'null');
     
@@ -72,7 +65,7 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
   new Picker.Date($('%s'), {
     format: '%s',
     timePicker: %s,
-    yearPicker: true,
+    yearPicker: %s,
     minDate: '%s',
     maxDate: '%s',
     positionOffset: {x: 5, y: 0},
@@ -86,6 +79,7 @@ EOF
       $this->generateId($name),
       $default_date_format,
       $this->getOption('with_time'),
+      $this->getOption('year_picker'),
       $this->getOption('min_date'),
       $this->getOption('max_date'),
       sfConfig::get('app_datepicker_picker_class')
