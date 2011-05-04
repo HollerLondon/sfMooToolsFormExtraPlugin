@@ -103,7 +103,7 @@ EOF
       sfConfig::get('app_datepicker_picker_class'),
       $this->generateId($name),  // day
       $this->generateId($name),  // month
-      $this->generateId($name)   // year
+      $this->generateId($name),   // year
       $this->generateId($name),  // hours
       $this->generateId($name)   // minutes
      );
