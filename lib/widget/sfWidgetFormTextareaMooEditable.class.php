@@ -53,13 +53,16 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
     $extraOptions = $this->getOption('extratoolbar');
     if (!empty($extraOptions)) $extraOptions .= ' |';
     
+    $config = $this->getOption('config');
+    if (!empty($config)) $config = ', ' . $config;
+    
     $js = sprintf(<<<EOF
 <script type="text/javascript">
   window.addEvent('load', function(){
     $('%s').mooEditable( { 
       dimensions: { x: %s, y: %s },
       actions: '%s | %s toggleview',
-      baseCSS: '%s',
+      baseCSS: '%s'
       %s
     } );
   });
@@ -72,7 +75,7 @@ EOF
       sfConfig::get('app_mooeditable_base_toolbar'),
       $extraOptions,
       sfConfig::get('app_mooeditable_base_css'),
-      $this->getOption('config')
+      $config
      );
      
      return $textarea.$js;
