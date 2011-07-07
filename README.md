@@ -87,7 +87,7 @@ A rich text editor
 
 ### Example usage: ###
 
-![mooeditable.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/mooeditable.png)
+![mooeditable.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/mooeditable.png?raw=true)
 
   Default implementation:
     
@@ -126,7 +126,7 @@ A Datepicker with the calendar control appearing when the user clicks on the inp
 
 ### Example usage: ###
 
-![datepicker_input.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/datepicker_input.png)
+![datepicker_input.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_input.png?raw=true)
 
   Just date:
     
@@ -184,7 +184,7 @@ A Datepicker with the calendar control appearing when the user clicks on the cal
     
 ### Example usage: ###
 
-![datepicker_date.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/datepicker_date.png)
+![datepicker_date.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_date.png?raw=true)
 
   Just date:
   
@@ -203,7 +203,7 @@ A Datepicker with the calendar control appearing when the user clicks on the cal
   
       $this->widgetSchema['date'] = new sfWidgetFormDateTimeMooPicker();
     
-![datepicker_datetime.png](http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/docs/images/datepicker_datetime.png)
+![datepicker_datetime.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_datetime.png?raw=true)
     
   Customised datetime widget:
   
