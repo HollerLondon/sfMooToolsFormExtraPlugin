@@ -1,0 +1,3 @@
+[submodule "lib/vendor/MooEditable"]
+	path = lib/vendor/MooEditable
+	url = git://github.com/angelsk/mooeditable.git
