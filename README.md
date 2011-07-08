@@ -21,11 +21,11 @@ Credits:
 
 * [MooEditable](http://mootools.net/forge/p/mooeditable) - Lim Chee Aun, Radovan Lozej, Ryan Mitchell, Olivier Refalo and T.J. Leahy
 
-NOTE: MooEditable.CleanPaste JS has been altered from version provided with MooEditable to fix bugs with Safari
+NOTE: Using [custom fork](https://github.com/angelsk/mooeditable) as MooEditable.CleanPaste JS has been edited to fix bugs with Safari
 
 * [Datepicker](http://mootools.net/forge/p/mootools_datepicker) - Arian Stolwijk
 
-NOTE: Default Datepicker 'datepicker_dashboard' theme has been altered from the orginal to be lighter
+NOTE: Using [custom fork](https://github.com/angelsk/mootools-datepicker) as file structure changed, also added 'datepicker_light' theme (default) with calendar icon - meshes better with symfony
 
 
 Javascript Pre-requisites

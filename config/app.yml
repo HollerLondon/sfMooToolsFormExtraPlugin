@@ -26,7 +26,7 @@ all:
     deafult_time_display_format:  '%hour% %minute%'
     
     # Styling options
-    picker_class:                 datepicker_dashboard
+    picker_class:                 datepicker_light
     ## Location of default CSS theme files
     base_css_location:            '/sfMooToolsFormExtraPlugin/css/Datepicker'   
     ## Location of locale files for Datepicker (plugin just contains default - if overriding include default in this location too)    
