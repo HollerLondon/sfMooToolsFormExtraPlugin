@@ -9,7 +9,7 @@ sfMooToolsFormExtraPlugin
 Introduction
 ------------
 
-This plugin contains several widgets (and a validator) for use with the [MooTools](http://mootools.net/) javascript framework.
+This symfony plugin contains several widgets (and a validator) for use with the [MooTools](http://mootools.net/) javascript framework.
 
 Be sure to ./symfony plugin:publish-assets after installation to ensure all the JavaScript and Stylesheet files are in place
 
@@ -21,15 +21,22 @@ Credits:
 
 * [MooEditable](http://mootools.net/forge/p/mooeditable) - Lim Chee Aun, Radovan Lozej, Ryan Mitchell, Olivier Refalo and T.J. Leahy
 
-NOTE: Using [custom fork](https://github.com/angelsk/mooeditable) as MooEditable.CleanPaste JS has been edited to fix bugs with Safari
+NOTE: Using [custom fork](https://github.com/angelsk/mooeditable)
 
 * [Datepicker](http://mootools.net/forge/p/mootools_datepicker) - Arian Stolwijk
 
 NOTE: Using [custom fork](https://github.com/angelsk/mootools-datepicker) as file structure changed, also added 'datepicker_light' theme (default) with calendar icon - meshes better with symfony
 
 
-Javascript Pre-requisites
--------------------------
+Pre-requisites
+--------------
+
+### PHP ###
+
+ * PHP 5.2.4 or later
+ * symfony 1.3/1.4
+
+### Javascript ###
 
  * MooTools Core 1.3+
  * Custom version of MooTools.More on a project level
@@ -67,7 +74,7 @@ other validators.
 MooEditable Textarea
 --------------------
 
-A rich text editor
+A configurable rich text editor widget, which includes (turned on by default) a clean paste from Word
 
 ### All configuration options: ###
 
@@ -97,7 +104,7 @@ A rich text editor
 Datepicker - input
 ------------------
 
-A Datepicker with the calendar control appearing when the user clicks on the input box to enter the date
+A date picker with the calendar control appearing when the user clicks on the input box to enter the date
 
 ### Default configuration: ###
 
@@ -155,7 +162,7 @@ A Datepicker with the calendar control appearing when the user clicks on the inp
 Datepicker - dropdown
 ---------------------
 
-A Datepicker with the calendar control appearing when the user clicks on the calendar image.
+A date picker with the calendar control appearing when the user clicks on the calendar image.
 
 ### Default configuration: ###
 
