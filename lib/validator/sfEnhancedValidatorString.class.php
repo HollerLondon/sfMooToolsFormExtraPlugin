@@ -3,7 +3,7 @@
  * Enhances the sfValidatorString to allow for HTML strings and stripping 
  * tags from length calculations
  * 
- * @package    symfony
+ * @package    sfMooToolsFormExtraPlugin
  * @subpackage widget
  * @author     Jo Carter <jocarter@holler.co.uk>
  * @version    SVN: $Id: sfEnhancedValidatorString.class.php 30762 2010-08-25 12:33:33Z jocarter $

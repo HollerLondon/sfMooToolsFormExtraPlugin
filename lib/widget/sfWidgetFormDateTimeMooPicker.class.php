@@ -4,7 +4,7 @@
  * 
  * Additional Javascript and Stylesheets can be added as required
  *
- * @package    symfony
+ * @package    sfMooToolsFormExtraPlugin
  * @subpackage widget
  * @author     Jo Carter <jocarter@holler.co.uk>
  * @version    SVN: $Id: sfWidgetFormDateTimeMooPicker.class.php 30762 2010-08-25 12:33:33Z jocarter $

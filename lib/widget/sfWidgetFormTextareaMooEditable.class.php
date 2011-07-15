@@ -4,7 +4,7 @@
  * 
  * You can override the Javascripts and Stylesheets if required - included from plugin
  *
- * @package    symfony
+ * @package    sfMooToolsFormExtraPlugin
  * @subpackage widget
  * @author     Jo Carter <jocarter@holler.co.uk>
  * @version    SVN: $Id: sfWidgetFormTextareaMooEditable.class.php 17192 2009-04-10 07:58:29Z jocarter $

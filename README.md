@@ -11,7 +11,7 @@ Introduction
 
 This symfony plugin contains several widgets (and a validator) for use with the [MooTools](http://mootools.net/) javascript framework.
 
-All default configuration is controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml.
+All default configuration is controlled in `plugins/sfMooToolsFormExtraPlugin/config/app.yml`.
 
 See *Setup* for publishing assets.
 
@@ -55,7 +55,7 @@ Setup
 
 ### Note for SVN
 
-If using SVN you will need to add this plugin and its dependancies (custom forks) as svn:externals
+If using SVN you will need to add this plugin and its dependancies (custom forks) as `svn:externals`
 
       sfMooToolsFormExtraPlugin                                 https://svn.github.com/HollerLondon/sfMooToolsFormExtraPlugin.git
       sfMooToolsFormExtraPlugin/lib/vendor/Datepicker           https://svn.github.com/angelsk/mootools-datepicker.git
@@ -64,7 +64,7 @@ If using SVN you will need to add this plugin and its dependancies (custom forks
 
 ### Note for Git
 
-The lib/vendor folder contains submodules for the javascript libraries, if the repository is exported then these will also need to be exported in the appropriate place.
+The `lib/vendor` folder contains `submodules` for the javascript libraries, if the repository is exported then these will also need to be exported in the appropriate place.
 
     [submodule "lib/vendor/MooEditable"]
       path = lib/vendor/MooEditable
@@ -78,7 +78,7 @@ The lib/vendor folder contains submodules for the javascript libraries, if the r
 
 Run `./symfony mootools:publish-assets` after installation to ensure all the JavaScript and Stylesheet files are in place.
 
-This plugin has a custom task due to symlinks in web being required from lib/vendor in the plugin, rather than just symlinking the web/ folder as normal.
+This plugin has a custom task due to symlinks in web being required from `lib/vendor` in the plugin, rather than just symlinking the `web/` folder as normal.
 
 
 Validators
@@ -98,8 +98,8 @@ other validators.
 
 #### Changes:
   
- * Extends sfValidatorString so all options and messages for that are used
- * Adds %current_length% to the options for the validator messages
+ * Extends `sfValidatorString` so all options and messages for that are used
+ * Adds `%current_length%` to the options for the validator messages
  * Strips HTML tags before calculating length, but returns the string with HTML
 
 
@@ -128,10 +128,10 @@ A configurable rich text editor widget, which includes (turned on by default) a 
 
 #### All configuration options:
 
- * config:          Additional MooEditable configuration
- * width:           The width of the editable area
- * height:          The height of the editable area
- * extratoolbar:    Any additional toolbar options - include | to separate
+ * `config`:          Additional MooEditable configuration
+ * `width`:           The width of the editable area
+ * `height`:          The height of the editable area
+ * `extratoolbar`:    Any additional toolbar options - include | to separate
 
 
 #### Default configuration: 
@@ -160,25 +160,22 @@ A date picker with the calendar control appearing when the user clicks on the in
 
 #### Default configuration: 
 
- * Controls locale (defaults to en-GB), and location of locale files - must include all locales if local files
+ * Controls locale (defaults to `en-GB`), and location of locale files - must include all locales if local files
  * Controls the theme and location of the theme CSS files and images
 
 
 #### Widget configuration options: 
 
- * locale:            if this is changed from the default, will require additional JS locale files
- * date_format:       The JavaScript format of the date in the input box (defaults to %Y-%m-%d - see below) - see [MooTools Date Format](http://mootools.net/docs/more/Types/Date#Date:format).
- 
-  If this is changed should be paired with appropriate sfValidatorDate and regex - see Example usage. 
-                      
-  Ensure includes time if below option is 'true'
+ * `locale`:            if this is changed from the default, will require additional JS locale files
+ * `date_format`:       The JavaScript format of the date in the input box (defaults to `%Y-%m-%d` - see below) - see [MooTools Date Format](http://mootools.net/docs/more/Types/Date#Date:format).  
+  If this is changed should be paired with appropriate `sfValidatorDate` and regex - see Example usage.  
+  Ensure includes time if below option is '`true`'
   
- * php_date_format:   If the date_format for display is changed to a more user friendly format than %Y-%m-%d - the value needs to be converted from the database format
- 
-  This field should contain the corresponding PHP date_format for use with date() - see [PHP Date Format](http://uk.php.net/manual/en/function.date.php)
+ * `php_date_format`:   If the date_format for display is changed to a more user friendly format than `%Y-%m-%d` - the value needs to be converted from the database format.    
+  This field should contain the corresponding PHP `date_format` for use with `date()` - see [PHP Date Format](http://uk.php.net/manual/en/function.date.php)
   
- * with_time:         defaults to 'false', include time in the date picker (date format defaults to %Y-%m-%d %H:%i instead of %Y-%m-%d)
- * year_picker:       defaults to 'true', click on the month name twice to select year - if date range restricted within one year then set to 'false'
+ * with_time:         defaults to '`false`', include time in the date picker (date format defaults to `%Y-%m-%d %H:%i` instead of `%Y-%m-%d`)
+ * year_picker:       defaults to '`true`', click on the month name twice to select year - if date range restricted within one year then set to '`false`'
  * min_date:          default is none, set to restrict date range (format: see above)
  * max_date:          default is none, set to restrict date range (format: see above)
 
@@ -220,7 +217,7 @@ A date picker with the calendar control appearing when the user clicks on the ca
 
 #### Default configuration: 
 
- * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
+ * Controls locale (defaults to `en-GB`), and location of locale files - must include all locales if moved
  * Controls the theme and location of the theme CSS files and images
  * Controls the default display date and time formats for the symfony dropdown widgets
 
@@ -229,19 +226,19 @@ A date picker with the calendar control appearing when the user clicks on the ca
 
 (date):
 
- * locale:            if this is changed from the default, will require additional JS locale files
- * year_picker:       defaults to 'true', click on the month name twice to select year - if date range restricted within one year then set to 'false'
- * min_date:          default is none, set to restrict date range (format: Y-m-d)
- * max_date:          default is none, set to restrict date range (format: Y-m-d)
- * date_widget:       The date widget to render with the calendar
+ * `locale`:            if this is changed from the default, will require additional JS locale files
+ * `year_picker`:       defaults to '`true`', click on the month name twice to select year - if date range restricted within one year then set to '`false`'
+ * `min_date`:          default is none, set to restrict date range (format: `Y-m-d`)
+ * `max_date`:          default is none, set to restrict date range (format: `Y-m-d`)
+ * `date_widget`:       The date widget to render with the calendar
 
 (datetime):
 
- * locale:            if this is changed from the default, will require additional JS locale files
- * year_picker:       defaults to 'true', click on the month name twice to select year - if date range restricted within one year then set to 'false'
- * min_date:          default is none, set to restrict date range (format: Y-m-d)
- * max_date:          default is none, set to restrict date range (format: Y-m-d)
- * date_time_widget:  The datetime widget to render with the calendar
+ * `locale`:            if this is changed from the default, will require additional JS locale files
+ * `year_picker`:       defaults to '`true`', click on the month name twice to select year - if date range restricted within one year then set to '`false`'
+ * `min_date`:          default is none, set to restrict date range (format: `Y-m-d`)
+ * `max_date`:          default is none, set to restrict date range (format: `Y-m-d`)
+ * `date_time_widget`:  The datetime widget to render with the calendar
     
     
 #### Example usage: 
