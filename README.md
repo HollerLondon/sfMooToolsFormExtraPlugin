@@ -11,21 +11,16 @@ Introduction
 
 This symfony plugin contains several widgets (and a validator) for use with the [MooTools](http://mootools.net/) javascript framework.
 
-Be sure to ./symfony plugin:publish-assets after installation to ensure all the JavaScript and Stylesheet files are in place
-
 All default configuration is controlled in plugins/sfMooToolsFormExtraPlugin/config/app.yml.
+
+See *Setup* for publishing assets.
 
 
 Credits:
 --------
 
-* [MooEditable](http://mootools.net/forge/p/mooeditable) - Lim Chee Aun, Radovan Lozej, Ryan Mitchell, Olivier Refalo and T.J. Leahy
-
-NOTE: Using [custom fork](https://github.com/angelsk/mooeditable)
-
+* [MooEditable](http://mootools.net/forge/p/mooeditable) - Lim Chee Aun
 * [Datepicker](http://mootools.net/forge/p/mootools_datepicker) - Arian Stolwijk
-
-NOTE: Using [custom fork](https://github.com/angelsk/mootools-datepicker) as file structure changed, also added 'datepicker_light' theme (default) with calendar icon - meshes better with symfony
 
 
 Pre-requisites
@@ -48,35 +43,90 @@ Pre-requisites
    * MooEditable requires MooTools.More:
      * More/Class.Refactor 
      * More/Locale 
+ * MooEditable and Datepicker in lib/vendor - see *Setup*
 
 
-Enhanced String Validator
--------------------------
+Setup
+-----
+
+*NOTE*: Using [custom fork of Mooditable](https://github.com/angelsk/mooeditable) for convenience.  
+*NOTE*: Using [custom fork for Datepicker](https://github.com/angelsk/mootools-datepicker) as file structure changed, also added 'datepicker_light' theme (default) with calendar icon - meshes better with symfony
+
+
+### Note for SVN
+
+If using SVN you will need to add this plugin and its dependancies (custom forks) as svn:externals
+
+      sfMooToolsFormExtraPlugin                                 https://svn.github.com/HollerLondon/sfMooToolsFormExtraPlugin.git
+      sfMooToolsFormExtraPlugin/lib/vendor/Datepicker           https://svn.github.com/angelsk/mootools-datepicker.git
+      sfMooToolsFormExtraPlugin/lib/vendor/MooEditable          https://svn.github.com/angelsk/mooeditable.git
+
+
+### Note for Git
+
+The lib/vendor folder contains submodules for the javascript libraries, if the repository is exported then these will also need to be exported in the appropriate place.
+
+    [submodule "lib/vendor/MooEditable"]
+      path = lib/vendor/MooEditable
+      url = git://github.com/angelsk/mooeditable.git
+    [submodule "lib/vendor/Datepicker"]
+      path = lib/vendor/Datepicker
+      url = git://github.com/angelsk/mootools-datepicker.git
+
+
+### Publish assets
+
+Run `./symfony mootools:publish-assets` after installation to ensure all the JavaScript and Stylesheet files are in place.
+
+This plugin has a custom task due to symlinks in web being required from lib/vendor in the plugin, rather than just symlinking the web/ folder as normal.
+
+
+Validators
+----------
+
+* Enhanced String Validator
+
+
+***
+
+### Enhanced String Validator
   
 An enhanced string validator which allows HTML strings to have a max length which doesn't include the tags (especially useful if the character limit is for display purposes). 
 Adds an extra dynamic option to the validator message to tell the user how many characters they have actually used, to make it easier to reduce.  Can be used in conjunction with 
 other validators.
 
-### Changes: ###
+
+#### Changes:
   
  * Extends sfValidatorString so all options and messages for that are used
  * Adds %current_length% to the options for the validator messages
  * Strips HTML tags before calculating length, but returns the string with HTML
 
 
-### Example usage: ###
+#### Example usage:
 
   Default implementation:
     
       $this->validatorSchema['text'] = new sfEnhancedValidatorString(array('max_length'=>200), 
                                                                      array('max_length'=>'Content is too long (%current_length% characters), please limit to %max_length% characters'));
 
-MooEditable Textarea
---------------------
+
+Widgets
+-------
+
+* MooEditable Textarea
+* Datepicker - input (with and without time)
+* Datepicker - dropdown (with and without time)
+
+
+***
+
+### MooEditable Textarea
 
 A configurable rich text editor widget, which includes (turned on by default) a clean paste from Word
 
-### All configuration options: ###
+
+#### All configuration options:
 
  * config:          Additional MooEditable configuration
  * width:           The width of the editable area
@@ -84,7 +134,7 @@ A configurable rich text editor widget, which includes (turned on by default) a 
  * extratoolbar:    Any additional toolbar options - include | to separate
 
 
-### Default configuration: ###
+#### Default configuration: 
 
  * Controls all default configuration options
  * Controls base CSS for the editable area
@@ -92,7 +142,7 @@ A configurable rich text editor widget, which includes (turned on by default) a 
  * Controls base toolbar options, and allows extra CSS and JS to be added if the default toolbar for all widgets is changed
 
 
-### Example usage: ###
+#### Example usage: 
 
 ![mooeditable.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/mooeditable.png?raw=true)
 
@@ -101,18 +151,20 @@ A configurable rich text editor widget, which includes (turned on by default) a 
       $this->widgetSchema['text'] = new sfWidgetFormTextareaMooEditable();
 
 
-Datepicker - input
-------------------
+***
+
+### Datepicker - input
 
 A date picker with the calendar control appearing when the user clicks on the input box to enter the date
 
-### Default configuration: ###
+
+#### Default configuration: 
 
  * Controls locale (defaults to en-GB), and location of locale files - must include all locales if local files
  * Controls the theme and location of the theme CSS files and images
 
 
-### Widget configuration options: ###
+#### Widget configuration options: 
 
  * locale:            if this is changed from the default, will require additional JS locale files
  * date_format:       The JavaScript format of the date in the input box (defaults to %Y-%m-%d - see below) - see [MooTools Date Format](http://mootools.net/docs/more/Types/Date#Date:format).
@@ -131,7 +183,7 @@ A date picker with the calendar control appearing when the user clicks on the in
  * max_date:          default is none, set to restrict date range (format: see above)
 
 
-### Example usage: ###
+#### Example usage:
 
 ![datepicker_input.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_input.png?raw=true)
 
@@ -158,19 +210,22 @@ A date picker with the calendar control appearing when the user clicks on the in
       $this->widgetSchema['date']     = new sfWidgetFormInputDateTimeMooPicker(array('date_format'=>$date_format, 'php_date_format'=>$php_date_format));
       $this->validatorSchema['date']  = new sfValidatorDate(array('date_format'=>$regex));
 
+
+***
   
-Datepicker - dropdown
----------------------
+### Datepicker - dropdown
 
 A date picker with the calendar control appearing when the user clicks on the calendar image.
 
-### Default configuration: ###
+
+#### Default configuration: 
 
  * Controls locale (defaults to en-GB), and location of locale files - must include all locales if moved
  * Controls the theme and location of the theme CSS files and images
  * Controls the default display date and time formats for the symfony dropdown widgets
 
-### Widget configuration options: ###
+
+#### Widget configuration options:
 
 (date):
 
@@ -189,7 +244,7 @@ A date picker with the calendar control appearing when the user clicks on the ca
  * date_time_widget:  The datetime widget to render with the calendar
     
     
-### Example usage: ###
+#### Example usage: 
 
 ![datepicker_date.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_date.png?raw=true)
 
