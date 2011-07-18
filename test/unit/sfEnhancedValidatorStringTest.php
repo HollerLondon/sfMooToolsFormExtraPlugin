@@ -1,6 +1,6 @@
 <?php
 /**
- * Unit test for the sfEnhancedStringValidator
+ * Unit test for the sfEnhancedValidatorString
  * 
  * Extends sfStringValidator so these tests are duplicated to ensure that this functionality has not been compromised
  * 
