@@ -78,7 +78,7 @@ The `lib/vendor` folder contains `submodules` for the javascript libraries, if t
 
 Run `./symfony mootools:publish-assets` after installation to ensure all the JavaScript and Stylesheet files are in place.
 
-This plugin has a custom task due to symlinks in web being required from `lib/vendor` in the plugin, rather than just symlinking the `web/` folder as normal.
+This plugin has a custom task due to symlinks in web being required from `lib/vendor` in the plugin, rather than just creating a symlink to the `web/` folder as normal.
 
 
 Validators
@@ -105,6 +105,8 @@ other validators.
 
 #### Example usage:
 
+![string_validator.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/string_validator.png?raw=true)
+
   Default implementation:
     
       $this->validatorSchema['text'] = new sfEnhancedValidatorString(array('max_length'=>200), 
@@ -114,14 +116,14 @@ other validators.
 Widgets
 -------
 
-* MooEditable Textarea
+* MooEditable text area
 * Datepicker - input (with and without time)
-* Datepicker - dropdown (with and without time)
+* Datepicker - drop down (with and without time)
 
 
 ***
 
-### MooEditable Textarea
+### MooEditable text area
 
 A configurable rich text editor widget, which includes (turned on by default) a clean paste from Word
 
@@ -219,7 +221,7 @@ A date picker with the calendar control appearing when the user clicks on the ca
 
  * Controls locale (defaults to `en-GB`), and location of locale files - must include all locales if moved
  * Controls the theme and location of the theme CSS files and images
- * Controls the default display date and time formats for the symfony dropdown widgets
+ * Controls the default display date and time formats for the symfony drop down widgets
 
 
 #### Widget configuration options:
