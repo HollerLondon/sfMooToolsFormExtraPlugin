@@ -1,11 +1,6 @@
 sfMooToolsFormExtraPlugin
 =========================
 
-@author:    Jo Carter (<jocarter@holler.co.uk>)
-
-@version:   1.0
-
-
 Introduction
 ------------
 
@@ -55,16 +50,16 @@ Setup
 
 ### Note for SVN
 
-If using SVN you will need to add this plugin and its dependancies (custom forks) as `svn:externals`
+If using SVN you will need to add these dependancies (custom forks) as `svn:externals` in `lib/vendor` (they cannot be added in the plugin, 
+as the SVN bridge converts the existing submodules in Git to folders and svn:externals cannot override existing files)
 
-      sfMooToolsFormExtraPlugin                                 https://svn.github.com/HollerLondon/sfMooToolsFormExtraPlugin.git
-      sfMooToolsFormExtraPlugin/lib/vendor/Datepicker           https://svn.github.com/angelsk/mootools-datepicker.git
-      sfMooToolsFormExtraPlugin/lib/vendor/MooEditable          https://svn.github.com/angelsk/mooeditable.git
+      lib/vendor/Datepicker           https://svn.github.com/angelsk/mootools-datepicker.git
+      lib/vendor/MooEditable          https://svn.github.com/angelsk/mooeditable.git
 
 
 ### Note for Git
 
-The `lib/vendor` folder contains `submodules` for the javascript libraries, if the repository is exported then these will also need to be exported in the appropriate place.
+The plugin's `lib/vendor` folder contains `submodules` for the javascript libraries, if the repository is exported then these will also need to be exported in the appropriate place.
 
     [submodule "lib/vendor/MooEditable"]
       path = lib/vendor/MooEditable
@@ -78,7 +73,7 @@ The `lib/vendor` folder contains `submodules` for the javascript libraries, if t
 
 Run `./symfony mootools:publish-assets` after installation to ensure all the JavaScript and Stylesheet files are in place.
 
-This plugin has a custom task due to symlinks in web being required from `lib/vendor` in the plugin, rather than just creating a symlink to the `web/` folder as normal.
+This plugin has a custom task due to symlinks in web being required from `lib/vendor` in the plugin or in the project, rather than just creating a symlink to the `web/` folder as normal.
 
 
 Validators

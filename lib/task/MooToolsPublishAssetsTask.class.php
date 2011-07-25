@@ -51,10 +51,21 @@ EOF;
    */
   protected function installPluginAssets($plugin, $dir)
   {
-    $libVendorDir = $dir.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'vendor';
+    // NOTE: Depending on how the plugin is installed - the lib/vendor folder could be within the project or the plugin
+    // Check the project first (as the plugin may contain stubs from the git submodules via the SVN bridge)
+    $symfonyLibDir = sfConfig::get('sf_lib_dir').DIRECTORY_SEPARATOR.'vendor';
+    
+    if (is_dir($symfonyLibDir.DIRECTORY_SEPARATOR.'Datepicker')
+    {
+      $libVendorDir = $symfonyLibDir;
+    }
+    else 
+    {
+      $libVendorDir = $dir.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'vendor';
+    }
 
     // check both vendor folders exist
-    if (is_dir($libVendorDir.DIRECTORY_SEPARATOR.'Datepicker') && is_dir($libVendorDir.DIRECTORY_SEPARATOR.'MooEditable'))
+    if (is_dir($libVendorDir.DIRECTORY_SEPARATOR.'Datepicker'.DIRECTORY_SEPARATOR.'Source') && is_dir($libVendorDir.DIRECTORY_SEPARATOR.'MooEditable'.DIRECTORY_SEPARATOR.'Source'))
     {
       $fileSystem = $this->getFilesystem();
       
@@ -79,7 +90,7 @@ EOF;
     }
     else
     {
-      $this->logSection('plugin', 'Please ensure you have set up approriate links in the plugin\'s lib/vendor folder as per the README', null, 'ERROR');
+      $this->logSection('plugin', 'Please ensure you have set up approriate links in the lib/vendor folder as per the README', null, 'ERROR');
     }
   }
 }
