@@ -55,7 +55,7 @@ EOF;
     // Check the project first (as the plugin may contain stubs from the git submodules via the SVN bridge)
     $symfonyLibDir = sfConfig::get('sf_lib_dir').DIRECTORY_SEPARATOR.'vendor';
     
-    if (is_dir($symfonyLibDir.DIRECTORY_SEPARATOR.'Datepicker')
+    if (is_dir($symfonyLibDir.DIRECTORY_SEPARATOR.'Datepicker'))
     {
       $libVendorDir = $symfonyLibDir;
     }
