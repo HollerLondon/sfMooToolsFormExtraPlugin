@@ -100,7 +100,7 @@ other validators.
 
 #### Example usage:
 
-![string_validator.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/string_validator.png?raw=true)
+![string_validator.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/string_validator.png?raw=true)
 
   Default implementation:
     
@@ -141,7 +141,7 @@ A configurable rich text editor widget, which includes (turned on by default) a 
 
 #### Example usage: 
 
-![mooeditable.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/mooeditable.png?raw=true)
+![mooeditable.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/mooeditable.png?raw=true)
 
   Default implementation:
     
@@ -179,7 +179,7 @@ A date picker with the calendar control appearing when the user clicks on the in
 
 #### Example usage:
 
-![datepicker_input.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_input.png?raw=true)
+![datepicker_input.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_input.png?raw=true)
 
   Just date:
     
@@ -240,7 +240,7 @@ A date picker with the calendar control appearing when the user clicks on the ca
     
 #### Example usage: 
 
-![datepicker_date.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_date.png?raw=true)
+![datepicker_date.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_date.png?raw=true)
 
   Just date:
   
@@ -259,7 +259,7 @@ A date picker with the calendar control appearing when the user clicks on the ca
   
       $this->widgetSchema['date'] = new sfWidgetFormDateTimeMooPicker();
     
-![datepicker_datetime.png](/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_datetime.png?raw=true)
+![datepicker_datetime.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_datetime.png?raw=true)
     
   Customised datetime widget:
   
