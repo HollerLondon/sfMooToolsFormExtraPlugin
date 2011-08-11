@@ -3,11 +3,11 @@
   <name>sfMooToolsFormExtraPlugin</name>
   <channel>plugins.symfony-project.org</channel>
   <summary>Symfony widgets for use with the MooTools javascript framework</summary>
-  <description>This plugin contains several widgets (and a validator) for use with the MooTools (http://mootools.net/) javascript framework. Currently contains a rich text editor and several datepickers.</description>
+  <description>This plugin contains several widgets (and a validator) for use with the MooTools (http://mootools.net/) javascript framework.</description>
   <lead>
     <name>Jo Carter</name>
     <user>angelsk</user>
-    <email>jocarter+symfony@holler.co.uk</email>
+    <email>jocarter@holler.co.uk</email>
     <active>yes</active>
   </lead>
   <date>2011-04-27</date>
@@ -19,7 +19,7 @@
     <release>stable</release>
     <api>stable</api>
   </stability>
-  <license uri="http://svn.symfony-project.com/plugins/sfMooToolsFormExtraPlugin/trunk/LICENSE">MIT license</license>
+  <license uri="https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/LICENSE">MIT license</license>
   <notes>-</notes>
   <contents>
     <dir name="/">
@@ -27,29 +27,27 @@
       <file role="data" name="LICENSE" />
       <dir name="config">
         <file role="data" name="app.yml" />
+        <file role="data" name="sfMooToolsFormExtraPluginConfiguration.class.php" />
       </dir>
       <dir name="docs">
-        <dir name="Datepicker">
-          <file role="data" name="README.md" />
-        </dir>
         <dir name="images">
           <file role="data" name="datepicker_date.png" />
           <file role="data" name="datepicker_datetime.png" />
           <file role="data" name="datepicker_input.png" />
           <file role="data" name="mooeditable.png" />
-        </dir>
-        <dir name="MooEditable">
-          <file role="data" name="MooEditable.Extras.md" />
-          <file role="data" name="MooEditable.Group.md" />
-          <file role="data" name="MooEditable.md" />
-          <file role="data" name="MooEditable.UI.ButtonOverlay.md" />
-          <file role="data" name="MooEditable.UI.MenuList.md" />
-          <file role="data" name="README.md" />
+          <file role="data" name="string_validator.png" />
         </dir>
       </dir>
       <dir name="lib">
+        <dir name="task">
+          <file role="data" name="MooToolsPublishAssetsTask.class.php" />
+        </dir>
         <dir name="validator">
           <file role="data" name="sfEnhancedValidatorString.class.php" />
+        </dir>
+        <dir name="vendor">
+          <file role="link" name="Datepicker" />
+          <file role="link" name="MooEditable" />
         </dir>
         <dir name="widget">
           <file role="data" name="sfWidgetFormDateMooPicker.class.php" />
@@ -58,59 +56,12 @@
           <file role="data" name="sfWidgetFormTextareaMooEditable.class.php" />
         </dir>
       </dir>
-      <dir name="web">
-        <dir name="css">
-          <dir name="Datepicker">
-            <dir name="datepicker_dashboard">
-              <file role="data" name="buttons.png" />
-              <file role="data" name="datepicker_dashboard.css" />
-              <file role="data" name="frame.png" />
-              <file role="data" name="icon_calendar" />
-            </dir>
-            <file role="data" name="datepicker.css" />
-          </dir>
-          <dir name="MooEditable">
-            <dir name="images">
-              <file role="data" name="mooeditable-extras-toolbarbuttons-tango.png" />
-              <file role="data" name="mooeditable-toolbarbuttons-tango.png" />
-            </dir>
-            <dir name="Other">
-              <file role="data" name="hr.png" />
-              <file role="data" name="removeformat.png" />
-              <file role="data" name="table-add.png" />
-              <file role="data" name="table-coladd.png" />
-              <file role="data" name="table-coldelete.png" />
-              <file role="data" name="table-coledit.png" />
-              <file role="data" name="table-colspan.png" />
-              <file role="data" name="table-colsplit.png" />
-              <file role="data" name="table-edit.png" />
-              <file role="data" name="table-rowadd.png" />
-              <file role="data" name="table-rowdelete.png" />
-              <file role="data" name="table-rowedit.png" />
-              <file role="data" name="table-rowspan.png" />
-              <file role="data" name="table-rowsplit.png" />
-            </dir>
-            <file role="data" name="MooEditable.css" />
-            <file role="data" name="MooEditable.Extras.css" />
-            <file role="data" name="MooEditable.Table.css" />
-          </dir>
+      <dir name="test">
+        <dir name="bootstrap">
+          <file role="data" name="unit.php" />
         </dir>
-        <dir name="js">
-          <dir name="Datepicker">
-            <file role="data" name="Locale.en-GB.DatePicker.js" />
-            <file role="data" name="Picker.Attach.js" />
-            <file role="data" name="Picker.Date.js" />
-            <file role="data" name="Picker.js" />
-          </dir>
-          <dir name="MooEditable">
-            <file role="data" name="MooEditable.CleanPaste.js" />
-            <file role="data" name="MooEditable.Extras.js" />
-            <file role="data" name="MooEditable.js" />
-            <file role="data" name="MooEditable.Table.js" />
-            <file role="data" name="MooEditable.UI.ButtonOverlay.js" />
-            <file role="data" name="MooEditable.UI.ExtendedLinksDialog.js" />
-            <file role="data" name="MooEditable.UI.MenuList.js" />
-          </dir>
+        <dir name="unit">
+          <file role="data" name="sfEnhancedValidatorStringTest.php" />
         </dir>
       </dir>
     </dir>
