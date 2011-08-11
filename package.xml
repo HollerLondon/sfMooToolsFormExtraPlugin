@@ -10,7 +10,7 @@
     <email>jocarter@holler.co.uk</email>
     <active>yes</active>
   </lead>
-  <date>2011-04-27</date>
+  <date>2011-08-11</date>
   <version>
     <release>1.0.0</release>
     <api>1.0.0</api>
@@ -23,7 +23,7 @@
   <notes>-</notes>
   <contents>
     <dir name="/">
-      <file role="data" name="README" />
+      <file role="data" name="README.md" />
       <file role="data" name="LICENSE" />
       <dir name="config">
         <file role="data" name="app.yml" />
@@ -46,8 +46,8 @@
           <file role="data" name="sfEnhancedValidatorString.class.php" />
         </dir>
         <dir name="vendor">
-          <file role="link" name="Datepicker" />
-          <file role="link" name="MooEditable" />
+          <dir name="Datepicker" />
+          <dir name="MooEditable" />
         </dir>
         <dir name="widget">
           <file role="data" name="sfWidgetFormDateMooPicker.class.php" />
