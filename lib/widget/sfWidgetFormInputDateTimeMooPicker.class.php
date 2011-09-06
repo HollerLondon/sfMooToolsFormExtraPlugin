@@ -9,7 +9,7 @@
  * @author     Jo Carter <jocarter@holler.co.uk>
  * @version    SVN: $Id: sfWidgetFormInputDateTimeMooPicker.class.php 30762 2010-08-25 12:33:33Z jocarter $
  */
-class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
+class sfWidgetFormInputDateTimeMooPicker extends BaseWidgetMooPicker
 {
   /**
    * Constructor.
@@ -36,15 +36,11 @@ class sfWidgetFormInputDateTimeMooPicker extends sfWidgetFormInput
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
+    parent::configure($options, $attributes);
+
     $this->addOption('date_format', null);
     $this->addOption('php_date_format', null);
     $this->addOption('with_time', 'false');
-    $this->addOption('year_picker', 'true');
-    $this->addOption('min_date', 'null');
-    $this->addOption('max_date', 'null');
-    
-    parent::configure($options, $attributes);
   }
   
   
@@ -106,49 +102,7 @@ EOF
       $this->getOption('max_date'),
       sfConfig::get('app_datepicker_picker_class')
      );
-     
-     return $input.$js;
-  }
 
-
-  /**
-   * Include Datepicker Javascripts
-   * 
-   * Requires MooTools.Core AND MooTools.More:
-   *  More/Date 
-   *  More/Date.Extras 
-   *  More/Locale 
-   *  More/Locale.[REQUIRED_LOCALE(S)].Date
-   *  
-   * @return string[]
-   */
-  public function getJavaScripts() 
-  {
-    $localeJs = sprintf('%s/Locale.%s.DatePicker.js',
-                    sfConfig::get('app_datepicker_js_locale_location'),
-                    $this->getOption('locale'));
-    
-    return array(
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.js',
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Attach.js',
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Date.js',
-            $localeJs
-    );
-  }
-
-  
-  /**
-   * Include Datepicker Stylesheet
-   * 
-   * @return string[]
-   */
-  public function getStylesheets()
-  {
-    $cssFile = sprintf('%s/%s/%s.css', 
-                sfConfig::get('app_datepicker_base_css_location'),
-                sfConfig::get('app_datepicker_picker_class'),
-                sfConfig::get('app_datepicker_picker_class'));
-    
-    return array($cssFile => 'screen');
+     return $this->renderDatePicker($input, $js);
   }
 }

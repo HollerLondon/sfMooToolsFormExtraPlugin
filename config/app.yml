@@ -21,6 +21,9 @@ all:
     # Default language for calendar picker
     default_locale:               en-GB
     
+    # Insert mooeditable script stuff in the page (false) or in a slot named date_picker_js where ever you like
+    use_slots:                    false
+    
     # For use with the dropdowns
     default_date_display_format:  '%day% %month% %year%'
     deafult_time_display_format:  '%hour% %minute%'

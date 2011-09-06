@@ -9,7 +9,7 @@
  * @author     Jo Carter <jocarter@holler.co.uk>
  * @version    SVN: $Id: sfWidgetFormDateTimeMooPicker.class.php 30762 2010-08-25 12:33:33Z jocarter $
  */
-class sfWidgetFormDateTimeMooPicker extends sfWidgetForm
+class sfWidgetFormDateTimeMooPicker extends BaseWidgetMooPicker
 {
   /**
    * Constructor.
@@ -31,14 +31,12 @@ class sfWidgetFormDateTimeMooPicker extends sfWidgetForm
    */
   protected function configure($options = array(), $attributes = array())
   {
-  	$this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
-  	$this->addOption('year_picker', 'true');
-    $this->addOption('min_date', 'null');
-    $this->addOption('max_date', 'null');
-    $this->addOption('date_time_widget', new sfWidgetFormDateTime(array('date' => array('format'=>sfConfig::get('app_datepicker_default_date_display_format')), 
-                                                                        'time'=> array('format'=>sfConfig::get('app_datepicker_default_time_display_format')))));
-    
     parent::configure($options, $attributes);
+
+    $this->addOption('date_time_widget', new sfWidgetFormDateTime(array(
+      'date' => array('format'=>sfConfig::get('app_datepicker_default_date_display_format')), 
+      'time'=> array('format'=>sfConfig::get('app_datepicker_default_time_display_format')))
+    ));
   }
   
   
@@ -112,49 +110,17 @@ EOF
                 sfConfig::get('app_datepicker_base_css_location'),
                 sfConfig::get('app_datepicker_picker_class'),
                 $this->generateId($name));
-                
-     return $input.$toggle.$js;
-  }
-
-
-  /**
-   * Include Datepicker Javascripts
-   * 
-   * Requires MooTools.Core AND MooTools.More:
-   *  More/Date 
-   *  More/Date.Extras 
-   *  More/Locale 
-   *  More/Locale.[REQUIRED_LOCALE(S)].Date
-   *  
-   * @return string[]
-   */
-  public function getJavaScripts() 
-  {
-    $localeJs = sprintf('%s/Locale.%s.DatePicker.js',
-                    sfConfig::get('app_datepicker_js_locale_location'),
-                    $this->getOption('locale'));
-    
-    return array(
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.js',
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Attach.js',
-            '/sfMooToolsFormExtraPlugin/js/Datepicker/Picker.Date.js',
-            $localeJs
-    );
-  }
-
-  
-  /**
-   * Include Datepicker Stylesheet
-   * 
-   * @return string[]
-   */
-  public function getStylesheets()
-  {
-    $cssFile = sprintf('%s/%s/%s.css', 
-                sfConfig::get('app_datepicker_base_css_location'),
-                sfConfig::get('app_datepicker_picker_class'),
-                sfConfig::get('app_datepicker_picker_class'));
-    
-    return array($cssFile => 'screen');
+     
+     if($this->getOption('use_slots',FALSE))
+     {
+       sfContext::getInstance()->getConfiguration()->loadHelpers(array('Partial'));
+       slot('date_picker_js',get_slot('date_picker_js').$js);
+       return $input.$toggle;
+     }
+     else
+     {
+       return $input.$toggle.$js;
+     }
+     
   }
 }
