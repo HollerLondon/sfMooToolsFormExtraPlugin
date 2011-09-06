@@ -12,21 +12,14 @@
 class sfWidgetFormDateMooPicker extends BaseWidgetMooPicker
 {
   /**
-   * Constructor.
-   * 
-   * NOTE: Default locale is en-GB (in plugin app.yml), and date defaults have to match DB format to validate with sfValidatorDate
+   *  All of the options defined in BaseWidgetMooPicker, plus:
    *
-   * Available options:
-   *
-   * * locale:          if this is changed from the default, will require additional locale JS files
-   * * year_picker:     defaults to true, click on the month name twice to select year - if date range restricted within one year then set to 'false'
-   * * min_date:        default is none, set to restrict date range (format: Y-m-d)
-   * * max_date:        default is none, set to restrict date range (format: Y-m-d)
    * * date_widget:     The date widget to render with the calendar
    *
    * @param array $options     An array of options
    * @param array $attributes  An array of default HTML attributes
    *
+   * @see BaseWidgetMooPicker::configure()
    * @see sfWidgetForm
    */
   protected function configure($options = array(), $attributes = array())
@@ -34,7 +27,6 @@ class sfWidgetFormDateMooPicker extends BaseWidgetMooPicker
     parent::configure($options, $attributes);
 
     $this->addOption('date_widget', new sfWidgetFormDate(array('format'=>sfConfig::get('app_datepicker_default_date_display_format'))));
-    $this->addOption('use_slots',sfConfig::get('app_datepicker_use_slots',false));
   }
   
   
