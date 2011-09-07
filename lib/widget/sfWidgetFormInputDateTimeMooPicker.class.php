@@ -72,17 +72,20 @@ class sfWidgetFormInputDateTimeMooPicker extends BaseWidgetMooPicker
     
     $js = sprintf(<<<EOF
 <script type="text/javascript">
-  Locale.use('%s');
-  new Picker.Date($('%s'), {
-    format: '%s',
-    timePicker: %s,
-    yearPicker: %s,
-    minDate: '%s',
-    maxDate: '%s',
+window.addEvent('domready', function ()
+{
+  Locale.use('%1\$s');
+  new Picker.Date($('%2\$s'), {
+    format: '%3\$s',
+    timePicker: %4\$s,
+    yearPicker: %5\$s,
+    minDate: '%6\$s',
+    maxDate: '%7\$s',
     positionOffset: {x: 5, y: 0},
-    pickerClass: '%s',
+    pickerClass: '%8\$s',
     useFadeInOut: !Browser.ie
   });
+});
 </script>
 EOF
      ,

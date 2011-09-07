@@ -58,23 +58,26 @@ class sfWidgetFormDateMooPicker extends BaseWidgetMooPicker
     
     $js = sprintf(<<<EOF
 <script type="text/javascript">
-  Locale.use('%s');
-  new Picker.Date($('%s'), {
-    format: '%s',
+window.addEvent('domready', function ()
+{
+  Locale.use('%1\$s');
+  new Picker.Date($('%2\$s'), {
+    format: '%3\$s',
     timePicker: false,
-    yearPicker: %s,
-    minDate: '%s',
-    maxDate: '%s',
-    toggle: $('%s_control'),
+    yearPicker: %4\$s,
+    minDate: '%5\$s',
+    maxDate: '%6\$s',
+    toggle: $('%2\$s_control'),
     positionOffset: {x: 5, y: 0},
-    pickerClass: '%s',
+    pickerClass: '%7\$s',
     useFadeInOut: !Browser.ie,
     onSelect: function(date){
-        $('%s_day').set('value', date.get('date'));
-        $('%s_month').set('value', date.get('month') + 1); // month starts at 0
-        $('%s_year').set('value', date.get('year'));
+        $('%2\$s_day').set('value', date.get('date'));
+        $('%2\$s_month').set('value', date.get('month') + 1); // month starts at 0
+        $('%2\$s_year').set('value', date.get('year'));
     }
   });
+});
 </script>
 EOF
      ,
@@ -84,11 +87,7 @@ EOF
       $this->getOption('year_picker'),
       $this->getOption('min_date'),
       $this->getOption('max_date'),
-      $this->generateId($name),  // toggle calendar control
-      sfConfig::get('app_datepicker_picker_class'),
-      $this->generateId($name),  // day
-      $this->generateId($name),  // month
-      $this->generateId($name)   // year
+      sfConfig::get('app_datepicker_picker_class')
      );
      
      $toggle = sprintf('<img src="%s/%s/icon_calendar.gif" class="datepicker_calendar" alt="Calendar" id="%s_control" />',

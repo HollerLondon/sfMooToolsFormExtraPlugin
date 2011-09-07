@@ -18,7 +18,7 @@ Credits:
 * [Datepicker](http://mootools.net/forge/p/mootools_datepicker) - Arian Stolwijk
 
 
-Pre-requisites
+Dependencies
 --------------
 
 ### PHP ###
@@ -75,6 +75,21 @@ Run `./symfony mootools:publish-assets` after installation to ensure all the Jav
 
 This plugin has a custom task due to symlinks in web being required from `lib/vendor` in the plugin or in the project, rather than just creating a symlink to the `web/` folder as normal.
 
+
+### Slots or not?
+
+By default, the accompanying JavaScript to configure the widgets are placed inline with the inputs themselves, which may cause problems if your JavaScript files (especially MooTools Core/More) are included in the footer.
+
+As such, each of the widgets accepts a `use_slots` option, which defaults to the boolean value set in `app_datepicker_use_slots` (false by default). When this is set to true (either in `app.yml` or in the forms' options), the accompanying JavaScript added to a slot named `date_picker_js`, which you should include in your template after JavaScript libraries are included, e.g.:
+
+    <?php
+    include_javascripts();
+    include_slot('date_picker_js');
+    ?>
+
+All of the widget initialision JavaScript is fired on domready, so the slot is also safe to include in the `head`.
+
+If you have multiple date picker widgets, then the javascript is concatenated safely. If you’re adding the slot to your layout, you need to wrap it in a partial, because slots aren’t parsed in the layout.
 
 Validators
 ----------
@@ -176,8 +191,7 @@ A date picker with the calendar control appearing when the user clicks on the in
  * min_date:          default is none, set to restrict date range (format: see above)
  * max_date:          default is none, set to restrict date range (format: see above)
 
-
-#### Example usage:
+#### Examples:
 
 ![datepicker_input.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/datepicker_input.png?raw=true)
 
@@ -270,3 +284,18 @@ A date picker with the calendar control appearing when the user clicks on the ca
                                                                             'date_time_widget'=>new sfWidgetFormDateTime(array('date' => array('years'=>array_combine($years, $years), 
                                                                                                                                                'format'=>'%day% %month% %year%'),
                                                                                                                                'time'=> array('format'=>'%hour% %minute%')))));
+
+### Slots or not?
+
+By default, the accompanying JavaScript to configure the widgets are placed inline with the inputs themselves, which may cause problems if your JavaScript files (especially MooTools Core/More) are included in the footer.
+
+As such, each of the widgets accepts a `use_slots` option, which defaults to the boolean value set in `app_datepicker_use_slots` (false by default). When this is set to true (either in `app.yml` or in the forms' options), the accompanying JavaScript added to a slot named `date_picker_js`, which you should include in your template after JavaScript libraries are included, e.g.:
+
+    <?php
+    include_javascripts();
+    include_slot('date_picker_js');
+    ?>
+
+All of the widget initialision JavaScript is fired on domready, so the slot is also safe to include in the `head`.
+
+If you have multiple date picker widgets, then the javascript is concatenated safely. If you’re adding the slot to your layout, you need to wrap it in a partial, because slots aren’t parsed in the layout.
