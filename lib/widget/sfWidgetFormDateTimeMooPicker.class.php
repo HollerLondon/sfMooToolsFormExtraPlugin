@@ -102,16 +102,6 @@ EOF
                 sfConfig::get('app_datepicker_picker_class'),
                 $this->generateId($name));
      
-     if($this->getOption('use_slots',FALSE))
-     {
-       sfContext::getInstance()->getConfiguration()->loadHelpers(array('Partial'));
-       slot('date_picker_js',get_slot('date_picker_js').$js);
-       return $input.$toggle;
-     }
-     else
-     {
-       return $input.$toggle.$js;
-     }
-     
+     return $this->renderDatePicker($input, $js,$toggle);
   }
 }
