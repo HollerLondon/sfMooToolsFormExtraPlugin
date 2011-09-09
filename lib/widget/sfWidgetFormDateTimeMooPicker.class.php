@@ -67,20 +67,20 @@ window.addEvent('domready',function ()
   new Picker.Date($('%2\$s'), {
     format: '%3\$s',
     timePicker: true,
-    yearPicker: %\4$s,
-    minDate: '%\5$s',
-    maxDate: '%\6$s',
-    toggle: $('%\2$s_control'),
+    yearPicker: %4\$s,
+    minDate: '%5\$s',
+    maxDate: '%6\$s',
+    toggle: $('%2\$s_control'),
     positionOffset: {x: 5, y: 0},
     pickerClass: '%7\$s',
     useFadeInOut: !Browser.ie,
     onSelect: function(date){
-        $('%\2$s_day').set('value', date.get('date'));
-        $('%\2$s_month').set('value', date.get('month') + 1); // month starts at 0
-        $('%\2$s_year').set('value', date.get('year'));
+        $('%2\$s_day').set('value', date.get('date'));
+        $('%2\$s_month').set('value', date.get('month') + 1); // month starts at 0
+        $('%2\$s_year').set('value', date.get('year'));
         
-        $('%\2$s_hour').set('value', date.get('hours'));
-        $('%\2$s_minute').set('value', date.get('minutes'));
+        $('%2\$s_hour').set('value', date.get('hours'));
+        $('%2\$s_minute').set('value', date.get('minutes'));
     }
   });
 });
