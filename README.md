@@ -29,7 +29,7 @@ Dependencies
 ### Javascript ###
 
  * MooTools Core 1.3+
- * Custom version of MooTools.More on a project level
+ * Custom version of MooTools.More on a project level (http://mootools.net/more/ae872ef2564c6b585e478db4dddfc464)
    * Datepicker requires MooTools.More:
      * More/Date 
      * More/Date.Extras 
