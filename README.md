@@ -53,8 +53,8 @@ Setup
 If using SVN you will need to add these dependancies (custom forks) as `svn:externals` in the project's `lib/vendor` folder  
 (they cannot be added in the plugin, as the SVN bridge converts the existing submodules in Git to folders and svn:externals cannot override existing files)
 
-    Datepicker           https://svn.github.com/angelsk/mootools-datepicker.git
-    MooEditable          https://svn.github.com/angelsk/mooeditable.git
+    Datepicker           https://github.com/angelsk/mootools-datepicker.git/trunk
+    MooEditable          https://github.com/angelsk/mooeditable.git/trunk
 
 
 ### Note for Git
