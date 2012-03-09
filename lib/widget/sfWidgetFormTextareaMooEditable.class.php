@@ -32,7 +32,8 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
   	$this->addOption('height', sfConfig::get('app_mooeditable_default_height'));
     $this->addOption('config', sfConfig::get('app_mooeditable_default_config'));
     $this->addOption('extratoolbar', sfConfig::get('app_mooeditable_default_extra_toolbar'));
-    
+    $this->addOption('use_slots',sfConfig::get('app_mooeditable_use_slots',false));
+
     parent::configure($options, $attributes);
   }
   
@@ -78,7 +79,7 @@ EOF
       $config
      );
      
-     return $textarea.$js;
+     return $this->renderTextarea($textarea,$js);
   }
   
   
@@ -122,5 +123,19 @@ EOF
     if (!empty($extra_css)) $css += $extra_css;
     
     return $css;
+  }
+
+  public function renderTextarea($textarea, $js)
+  {
+    if($this->getOption('use_slots'))
+    {
+      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Partial'));
+      slot('mooeditable_js',get_slot('mooeditable_js').$js);
+      return $textarea; 
+    }
+    else
+    {
+      return $textarea.$js;
+    }
   }
 }

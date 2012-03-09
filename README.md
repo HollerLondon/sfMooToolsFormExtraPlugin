@@ -87,6 +87,13 @@ As such, each of the widgets accepts a `use_slots` option, which defaults to the
     include_slot('date_picker_js');
     ?>
 
+...or, for mooeditable:
+
+    <?php
+    include_javascripts();
+    include_slot('mooeditable_js');
+    ?>
+
 All of the widget initialision JavaScript is fired on domready, so the slot is also safe to include in the `head`.
 
 If you have multiple date picker widgets, then the javascript is concatenated safely. If you’re adding the slot to your layout, you need to wrap it in a partial, because slots aren’t parsed in the layout.

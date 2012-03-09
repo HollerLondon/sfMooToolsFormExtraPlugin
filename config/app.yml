@@ -16,12 +16,17 @@ all:
     # Styling options
     base_css:                     'html { cursor: text; } body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 13px; }'
     extra_css:                    []
+
+    # Insert mooeditable script stuff in the page (false) or in a slot named
+    # mooeditable_js where ever you like
+    use_slots:                    false
     
   datepicker:
     # Default language for calendar picker
     default_locale:               en-GB
     
-    # Insert mooeditable script stuff in the page (false) or in a slot named date_picker_js where ever you like
+    # Insert datepicker script stuff in the page (false) or in a slot named
+    # date_picker_js where ever you like
     use_slots:                    false
     
     # For use with the dropdowns
