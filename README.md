@@ -67,15 +67,9 @@ If using SVN you will need to add these dependancies (custom forks) as `svn:exte
 
 The plugin's `lib/vendor` folder contains `submodules` for the javascript libraries, if the repository is exported then these will also need to be exported in the appropriate place.
 
-    [submodule "lib/vendor/MooEditable"]
-      path = lib/vendor/MooEditable
-      url = git://github.com/angelsk/mooeditable.git
-    [submodule "lib/vendor/Datepicker"]
-      path = lib/vendor/Datepicker
-      url = git://github.com/angelsk/mootools-datepicker.git
-    [submodule "lib/vendor/mooRainbow"]
-      path = lib/vendor/mooRainbow
-      url = git://github.com/angelsk/mooRainbow.git
+    git submodule add git://github.com/angelsk/mooeditable.git lib/vendor/MooEditable
+    git submodule add git://github.com/angelsk/mootools-datepicker.git lib/vendor/Datepicker
+    git submodule add git://github.com/angelsk/mooRainbow.git lib/vendor/mooRainbow
 
 
 ### Publish assets
