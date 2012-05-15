@@ -16,9 +16,9 @@
     <email>benlancaster@holler.co.uk</email>
     <active>yes</active>
   </developer>
-  <date>2011-10-06</date>
+  <date>2012-05-15</date>
   <version>
-    <release>1.1.0</release>
+    <release>2.0.0</release>
     <api>1.0.0</api>
   </version>
   <stability>
@@ -41,6 +41,7 @@
           <file role="data" name="datepicker_datetime.png" />
           <file role="data" name="datepicker_input.png" />
           <file role="data" name="mooeditable.png" />
+          <file role="data" name="moorainbow.png" />
           <file role="data" name="string_validator.png" />
         </dir>
       </dir>
@@ -54,9 +55,11 @@
         <dir name="vendor">
           <dir name="Datepicker" />
           <dir name="MooEditable" />
+          <dir name="mooRainbow" />
         </dir>
         <dir name="widget">
-		  <file role="data" name="BaseWidgetMooPicker.class.php" />
+		      <file role="data" name="BaseWidgetMooPicker.class.php" />
+          <file role="data" name="sfWidgetFormColourPicker.class.php" />
           <file role="data" name="sfWidgetFormDateMooPicker.class.php" />
           <file role="data" name="sfWidgetFormDateTimeMooPicker.class.php" />
           <file role="data" name="sfWidgetFormInputDateTimeMooPicker.class.php" />
@@ -93,10 +96,10 @@
   <phprelease></phprelease>
   <changelog>
 	<release>
-  	  <date>2011-08-11</date>
-  	  <version>
-	    <release>1.0.0</release>
-	    <api>1.0.0</api>
+	  <date>2011-08-11</date>
+	  <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
 	  </version>
 	  <stability>
 	    <release>stable</release>
@@ -106,10 +109,10 @@
 	  <notes>First release - see Github for full changesets</notes>
 	</release>
 	<release>
-  	  <date>2011-08-11</date>
-  	  <version>
-	    <release>1.0.1</release>
-	    <api>1.0.0</api>
+	  <date>2011-08-11</date>
+	  <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api>
 	  </version>
 	  <stability>
 	    <release>stable</release>
@@ -119,10 +122,10 @@
 	  <notes>Updating images in README to work on symfony website</notes>
 	</release>
 	<release>
-  	  <date>2011-10-06</date>
-  	  <version>
-	    <release>1.1.0</release>
-	    <api>1.0.0</api>
+	  <date>2011-10-06</date>
+	  <version>
+    <release>1.1.0</release>
+    <api>1.0.0</api>
 	  </version>
 	  <stability>
 	    <release>stable</release>
@@ -131,5 +134,18 @@
 	  <license uri="https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/LICENSE">MIT license</license>
 	  <notes>Re-factored with a new base widget class for the date pickers, added option to include javascript with widget or in slot</notes>
 	</release>
+  <release>
+    <date>2012-05-15</date>
+    <version>
+    <release>2.0.0</release>
+    <api>1.0.0</api>
+    </version>
+    <stability>
+      <release>stable</release>
+      <api>stable</api>
+    </stability>
+    <license uri="https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/LICENSE">MIT license</license>
+    <notes>Added Colour Picker widget</notes>
+  </release>
   </changelog>
 </package>
