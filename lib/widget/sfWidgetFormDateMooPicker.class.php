@@ -90,9 +90,8 @@ EOF
       sfConfig::get('app_datepicker_picker_class')
      );
      
-     $toggle = sprintf('<img src="%s/%s/icon_calendar.gif" class="datepicker_calendar" alt="Calendar" id="%s_control" />',
-                sfConfig::get('app_datepicker_base_css_location'),
-                sfConfig::get('app_datepicker_picker_class'),
+     $toggle = sprintf('<img src="%s" class="datepicker_calendar" alt="Calendar" id="%s_control" />',
+                sfConfig::get('app_datepicker_calendar_icon'),
                 $this->generateId($name));
      
      return $this->renderDatePicker($input, $js,$toggle);

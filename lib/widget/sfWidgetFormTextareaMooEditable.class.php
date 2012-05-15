@@ -20,6 +20,7 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
    *  * width:            The width of the editable area
    *  * height:           The height of the editable area
    *  * extratoolbar:     Any additional toolbar options - include | to separate
+   *  * use_slots:        Set javascript in a slot rather than rendering - see README
    *
    * @param array $options     An array of options
    * @param array $attributes  An array of default HTML attributes
@@ -32,7 +33,7 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
   	$this->addOption('height', sfConfig::get('app_mooeditable_default_height'));
     $this->addOption('config', sfConfig::get('app_mooeditable_default_config'));
     $this->addOption('extratoolbar', sfConfig::get('app_mooeditable_default_extra_toolbar'));
-    $this->addOption('use_slots',sfConfig::get('app_mooeditable_use_slots',false));
+    $this->addOption('use_slots', sfConfig::get('app_mooeditable_use_slots', false));
 
     parent::configure($options, $attributes);
   }

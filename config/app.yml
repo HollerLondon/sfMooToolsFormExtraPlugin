@@ -36,6 +36,27 @@ all:
     # Styling options
     picker_class:                 datepicker_light
     ## Location of default CSS theme files
-    base_css_location:            '/sfMooToolsFormExtraPlugin/css/Datepicker'   
+    base_css_location:            '/sfMooToolsFormExtraPlugin/css/Datepicker' 
+    ## If you want to use a custom calendar icon  
+    calendar_icon:                '/sfMooToolsFormExtraPlugin/css/Datepicker/datepicker_light/icon_calendar.gif'
     ## Location of locale files for Datepicker (plugin just contains default - if overriding include default in this location too)    
     js_locale_location:           '/sfMooToolsFormExtraPlugin/js/Datepicker'        
+    
+  colourpicker:
+    # Defaults
+    ## this is the starting colour for the colour picker only
+    default_colour:               '#ffffff'
+    ## this is the colour the background is reset to after colour picked (should match your stylesheet)
+    default_background_colour:    '#eeeeee'
+    ## should the user be able to use the mouse scroll to change colour (this is a bit flaky)
+    allow_scroll:                  true
+  
+    # Styling options
+    ## Location of images used in CSS
+    image_path:                   '/sfMooToolsFormExtraPlugin/css/mooRainbow/images/'
+    ## Location of the image used to pick a colour - by default there are palette.png and rainbow.png
+    picker_icon:                  '/sfMooToolsFormExtraPlugin/css/mooRainbow/images/palette.png'
+    
+    # Insert colourpicker script stuff in the page (false) or in a slot named
+    # colour_picker_js where ever you like
+    use_slots:                    false

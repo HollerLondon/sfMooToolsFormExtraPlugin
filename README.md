@@ -16,6 +16,7 @@ Credits:
 
 * [MooEditable](http://mootools.net/forge/p/mooeditable) - Lim Chee Aun
 * [Datepicker](http://mootools.net/forge/p/mootools_datepicker) - Arian Stolwijk
+* [mooRainbow](http://mootools.net/forge/p/moorainbow) - Djamil Legato and Christopher Beloch
 
 
 Dependencies
@@ -28,8 +29,8 @@ Dependencies
 
 ### Javascript ###
 
- * MooTools Core 1.3+
- * Custom version of MooTools.More on a project level (http://mootools.net/more/ae872ef2564c6b585e478db4dddfc464)
+ * MooTools Core 1.4.5
+ * Custom version of MooTools.More on a project level (http://mootools.net/more/db85d287cff2f9dcf4e970a2f6e688b0)
    * Datepicker requires MooTools.More:
      * More/Date 
      * More/Date.Extras 
@@ -38,14 +39,18 @@ Dependencies
    * MooEditable requires MooTools.More:
      * More/Class.Refactor 
      * More/Locale 
- * MooEditable and Datepicker in lib/vendor - see *Setup*
+   * mooRainbow requires MooTools.More:
+     * More/Slider
+     * More/Drag
+     * More/Color
+ * MooEditable, Datepicker and mooRainbow in lib/vendor - see *Setup*
 
 
 Setup
 -----
 
-*NOTE*: Using [custom fork of Mooditable](https://github.com/angelsk/mooeditable) for convenience.  
-*NOTE*: Using [custom fork for Datepicker](https://github.com/angelsk/mootools-datepicker) as file structure changed, also added 'datepicker_light' theme (default) with calendar icon - meshes better with symfony
+*NOTE*: Using custom forks of [Mooditable](https://github.com/angelsk/mooeditable) and [mooRainbow](https://github.com/angelsk/mooRainbow/) for easy to fix bugs with new versions of MooTools.  
+*NOTE*: Using custom fork of [Datepicker](https://github.com/angelsk/mootools-datepicker) as file structure changed, also added 'datepicker_light' theme (default) with calendar icon - meshes better with symfony (and as above).
 
 
 ### Note for SVN
@@ -55,6 +60,7 @@ If using SVN you will need to add these dependancies (custom forks) as `svn:exte
 
     Datepicker           https://github.com/angelsk/mootools-datepicker.git/trunk
     MooEditable          https://github.com/angelsk/mooeditable.git/trunk
+    mooRainbow           https://github.com/angelsk/mooRainbow.git/trunk
 
 
 ### Note for Git
@@ -67,11 +73,14 @@ The plugin's `lib/vendor` folder contains `submodules` for the javascript librar
     [submodule "lib/vendor/Datepicker"]
       path = lib/vendor/Datepicker
       url = git://github.com/angelsk/mootools-datepicker.git
+    [submodule "lib/vendor/mooRainbow"]
+      path = lib/vendor/mooRainbow
+      url = git://github.com/angelsk/mooRainbow.git
 
 
 ### Publish assets
 
-Run `./symfony mootools:publish-assets` after installation to ensure all the JavaScript and Stylesheet files are in place.
+Run `./symfony mootools:publish-assets` after installation to ensure all the JavaScript and Stylesheet files are in place (and can be run subsequent times if need to upgrade to new widgets).
 
 This plugin has a custom task due to symlinks in web being required from `lib/vendor` in the plugin or in the project, rather than just creating a symlink to the `web/` folder as normal.
 
@@ -80,23 +89,18 @@ This plugin has a custom task due to symlinks in web being required from `lib/ve
 
 By default, the accompanying JavaScript to configure the widgets are placed inline with the inputs themselves, which may cause problems if your JavaScript files (especially MooTools Core/More) are included in the footer.
 
-As such, each of the widgets accepts a `use_slots` option, which defaults to the boolean value set in `app_datepicker_use_slots` (false by default). When this is set to true (either in `app.yml` or in the forms' options), the accompanying JavaScript added to a slot named `date_picker_js`, which you should include in your template after JavaScript libraries are included, e.g.:
+As such, each of the widgets accepts a `use_slots` option, which defaults to the boolean value set in the appropriate config option (false by default). When this is set to true (either in `app.yml` or in the forms' options), the accompanying JavaScript added to a slot, which you should include in your template after JavaScript libraries are included, e.g.:
 
     <?php
     include_javascripts();
     include_slot('date_picker_js');
-    ?>
-
-...or, for mooeditable:
-
-    <?php
-    include_javascripts();
     include_slot('mooeditable_js');
+    include_slot('colour_picker_js');
     ?>
 
-All of the widget initialision JavaScript is fired on domready, so the slot is also safe to include in the `head`.
+All of the widget initialisation JavaScript is fired on domready, so the slot is also safe to include in the `head`.
 
-If you have multiple date picker widgets, then the javascript is concatenated safely. If you’re adding the slot to your layout, you need to wrap it in a partial, because slots aren’t parsed in the layout.
+If you have multiple date picker widgets, then the javascript is concatenated safely.
 
 Validators
 ----------
@@ -136,6 +140,12 @@ Widgets
 * MooEditable text area
 * Datepicker - input (with and without time)
 * Datepicker - drop down (with and without time)
+* mooRainbow colour picker
+
+
+#### Widget configuration options:
+
+ * `use_slots`: All widgets have this option (detailed above) which allows the Javascript to be set into a slot rather than included in the flow of the page.
 
 
 ***
@@ -145,14 +155,6 @@ Widgets
 A configurable rich text editor widget, which includes (turned on by default) a clean paste from Word
 
 
-#### All configuration options:
-
- * `config`:          Additional MooEditable configuration
- * `width`:           The width of the editable area
- * `height`:          The height of the editable area
- * `extratoolbar`:    Any additional toolbar options - include | to separate
-
-
 #### Default configuration: 
 
  * Controls all default configuration options
@@ -160,6 +162,13 @@ A configurable rich text editor widget, which includes (turned on by default) a 
  * Controls whether CleanPaste included (by default)
  * Controls base toolbar options, and allows extra CSS and JS to be added if the default toolbar for all widgets is changed
 
+
+#### Widget configuration options:
+
+ * `config`:          Additional MooEditable configuration
+ * `width`:           The width of the editable area
+ * `height`:          The height of the editable area
+ * `extratoolbar`:    Any additional toolbar options - include | to separate
 
 #### Example usage: 
 
@@ -292,17 +301,19 @@ A date picker with the calendar control appearing when the user clicks on the ca
                                                                                                                                                'format'=>'%day% %month% %year%'),
                                                                                                                                'time'=> array('format'=>'%hour% %minute%')))));
 
-### Slots or not?
+### mooRainbow colour picker
+ 
+A plain input with a colour picker appearing when the user clicks on the associated icon.  Value returned is a hex code with the # - so a fixed string of length 7 should be used to store it.
 
-By default, the accompanying JavaScript to configure the widgets are placed inline with the inputs themselves, which may cause problems if your JavaScript files (especially MooTools Core/More) are included in the footer.
 
-As such, each of the widgets accepts a `use_slots` option, which defaults to the boolean value set in `app_datepicker_use_slots` (false by default). When this is set to true (either in `app.yml` or in the forms' options), the accompanying JavaScript added to a slot named `date_picker_js`, which you should include in your template after JavaScript libraries are included, e.g.:
+#### Default configuration
 
-    <?php
-    include_javascripts();
-    include_slot('date_picker_js');
-    ?>
+ * Controls the colours used - the default starting colour, and the default background colour (as the widget changes the body background as you are picking to make it easier to see).
+ * Controls the location of the images, and the picker icon
 
-All of the widget initialision JavaScript is fired on domready, so the slot is also safe to include in the `head`.
 
-If you have multiple date picker widgets, then the javascript is concatenated safely. If you’re adding the slot to your layout, you need to wrap it in a partial, because slots aren’t parsed in the layout.
+#### Example usage
+
+      $this->widgetSchema['colour']     = new sfWidgetFormColourPicker();
+
+![colourpicker.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/colourpicker.png?raw=true)

@@ -28,7 +28,7 @@ class sfWidgetFormDateTimeMooPicker extends BaseWidgetMooPicker
 
     $this->addOption('date_time_widget', new sfWidgetFormDateTime(array(
       'date' => array('format'=>sfConfig::get('app_datepicker_default_date_display_format')), 
-      'time'=> array('format'=>sfConfig::get('app_datepicker_default_time_display_format')))
+      'time' => array('format'=>sfConfig::get('app_datepicker_default_time_display_format')))
     ));
   }
   
@@ -97,9 +97,8 @@ EOF
       sfConfig::get('app_datepicker_picker_class')
      );
      
-     $toggle = sprintf('<img src="%s/%s/icon_calendar.gif" class="datepicker_calendar" alt="Calendar" id="%s_control" />',
-                sfConfig::get('app_datepicker_base_css_location'),
-                sfConfig::get('app_datepicker_picker_class'),
+     $toggle = sprintf('<img src="%s" class="datepicker_calendar" alt="Calendar" id="%s_control" />',
+                sfConfig::get('app_datepicker_calendar_icon'),
                 $this->generateId($name));
      
      return $this->renderDatePicker($input, $js,$toggle);

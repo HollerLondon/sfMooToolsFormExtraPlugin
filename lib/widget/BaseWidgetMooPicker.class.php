@@ -13,13 +13,13 @@ abstract class BaseWidgetMooPicker extends  sfWidgetFormInput
    * 
    * NOTE: Default locale is en-GB (in plugin app.yml), and date defaults have to match DB format to validate with sfValidatorDate
    * 
-   * Available options:
+   * Available options:  (defaults set in plugin app.yml)
    *
    * * locale:          if this is changed from the default, will require additional JS locale files
    * * year_picker:     defaults to 'true', click on the month name twice to select year - if date range restricted within one year then set to 'false'
    * * min_date:        default is none, set to restrict date range (format: see above)
    * * max_date:        default is none, set to restrict date range (format: see above)
-   * * use_slots:       place widget JS in a slot called "date_picker_js" (default defined as app_datepicker_use_slots)
+   * * use_slots:       Set javascript in a slot rather than rendering - see README
    *
    * @param array $options     An array of options
    * @param array $attributes  An array of default HTML attributes
@@ -28,15 +28,16 @@ abstract class BaseWidgetMooPicker extends  sfWidgetFormInput
    */
   protected function configure($options = array(), $attributes = array())
   {
-    parent::configure($options,$attributes);
+    parent::configure($options, $attributes);
     
     $this->addOption('locale', sfConfig::get('app_datepicker_default_locale'));
     $this->addOption('year_picker', 'true');
     $this->addOption('min_date', 'null');
     $this->addOption('max_date', 'null');
-    $this->addOption('use_slots',sfConfig::get('app_datepicker_use_slots',false));
+    $this->addOption('use_slots', sfConfig::get('app_datepicker_use_slots', false));
     
   }
+  
   /**
    * Include Datepicker Javascripts
    * 
