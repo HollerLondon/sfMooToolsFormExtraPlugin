@@ -37,11 +37,11 @@
       </dir>
       <dir name="docs">
         <dir name="images">
+          <file role="data" name="colourpicker.png" />
           <file role="data" name="datepicker_date.png" />
           <file role="data" name="datepicker_datetime.png" />
           <file role="data" name="datepicker_input.png" />
           <file role="data" name="mooeditable.png" />
-          <file role="data" name="moorainbow.png" />
           <file role="data" name="string_validator.png" />
         </dir>
       </dir>
