@@ -74,8 +74,8 @@ The plugin's `lib/vendor` folder contains `submodules` for the javascript librar
       path = lib/vendor/Datepicker
       url = git://github.com/angelsk/mootools-datepicker.git
     [submodule "lib/vendor/mooRainbow"]
-    	path = lib/vendor/mooRainbow
-    	url = git://github.com/angelsk/mooRainbow.git
+      path = lib/vendor/mooRainbow
+      url = git://github.com/angelsk/mooRainbow.git
 
 
 ### Publish assets
