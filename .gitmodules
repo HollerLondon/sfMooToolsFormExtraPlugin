@@ -7,3 +7,6 @@
 [submodule "lib/vendor/mooRainbow"]
 	path = lib/vendor/mooRainbow
 	url = git://github.com/angelsk/mooRainbow.git
+[submodule "lib/vendor/Autocompleter"]
+	path = lib/vendor/Autocompleter
+	url = git://github.com/angelsk/mootools-autocompleter.git

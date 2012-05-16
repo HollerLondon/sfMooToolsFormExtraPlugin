@@ -17,6 +17,7 @@ Credits:
 * [MooEditable](http://mootools.net/forge/p/mooeditable) - Lim Chee Aun
 * [Datepicker](http://mootools.net/forge/p/mootools_datepicker) - Arian Stolwijk
 * [mooRainbow](http://mootools.net/forge/p/moorainbow) - Djamil Legato and Christopher Beloch
+* [Autocompleter](http://digitarald.de/project/autocompleter/) - Harald Kirschner
 
 
 Dependencies
@@ -43,7 +44,7 @@ Dependencies
      * More/Slider
      * More/Drag
      * More/Color
- * MooEditable, Datepicker and mooRainbow in lib/vendor - see *Setup*
+ * MooEditable, Datepicker, mooRainbow and Autocompleter in lib/vendor - see *Setup*
 
 
 Setup
@@ -51,6 +52,7 @@ Setup
 
 *NOTE*: Using custom forks of [Mooditable](https://github.com/angelsk/mooeditable) and [mooRainbow](https://github.com/angelsk/mooRainbow/) for easy to fix bugs with new versions of MooTools.  
 *NOTE*: Using custom fork of [Datepicker](https://github.com/angelsk/mootools-datepicker) as file structure changed, also added 'datepicker_light' theme (default) with calendar icon - meshes better with symfony (and as above).
+*NOTE*: Using own repo for [Autocompleter](https://github.com/angelsk/mootools-autocompleter) as currently doesn't exist in Github
 
 
 ### Note for SVN
@@ -61,6 +63,7 @@ If using SVN you will need to add these dependancies (custom forks) as `svn:exte
     Datepicker           https://github.com/angelsk/mootools-datepicker.git/trunk
     MooEditable          https://github.com/angelsk/mooeditable.git/trunk
     mooRainbow           https://github.com/angelsk/mooRainbow.git/trunk
+    Autocompleter        https://github.com/angelsk/mootools-autocompleter.git/trunk
 
 
 ### Note for Git
@@ -70,6 +73,7 @@ The plugin's `lib/vendor` folder contains `submodules` for the javascript librar
     git submodule add git://github.com/angelsk/mooeditable.git lib/vendor/MooEditable
     git submodule add git://github.com/angelsk/mootools-datepicker.git lib/vendor/Datepicker
     git submodule add git://github.com/angelsk/mooRainbow.git lib/vendor/mooRainbow
+    git submodule add git://github.com/angelsk/mootools-autocompleter.git lib/vendor/Autocompleter
 
 
 ### Publish assets
@@ -90,6 +94,7 @@ As such, each of the widgets accepts a `use_slots` option, which defaults to the
     include_slot('date_picker_js');
     include_slot('mooeditable_js');
     include_slot('colour_picker_js');
+    include_slot('autocomplete_js');
     ?>
 
 All of the widget initialisation JavaScript is fired on domready, so the slot is also safe to include in the `head`.
@@ -135,6 +140,7 @@ Widgets
 * Datepicker - input (with and without time)
 * Datepicker - drop down (with and without time)
 * mooRainbow colour picker
+* Autocomplete - predictive input
 
 
 #### Widget configuration options:
@@ -311,3 +317,45 @@ A plain input with a colour picker appearing when the user clicks on the associa
       $this->widgetSchema['colour']     = new sfWidgetFormColourPicker();
 
 ![colourpicker.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/colourpicker.png?raw=true)
+
+
+### Autocomplete - predictive input
+
+A plain input with a predictive autocomplete script attached.  Requires a separate JSON feed for each implementation.
+
+#### Default configuration: 
+
+ * Control default configuration for the widget - see app.yml for more information
+
+
+#### Widget configuration options:
+
+ * `url`:              The url to create the auto complete with, this will return a JSON array (this will need to be created separately)      
+ * `multiple`:         Can multiple tags be selected?  Or just one (default: see app.yml)
+
+#### Example usage
+
+      <?php
+      if (!function_exists('url_for')) sfApplicationConfiguration::getActive()->loadHelpers(array('Url'));
+
+      $this->widgetSchema['tag']     = new sfWidgetFormInputAutocomplete(array('url' => url_for('@tags')));
+      
+If multiple is true multiple entries are separated by a comma then a space.  For all implementation continue typing to add an new entry that's not in the list.
+      
+![autocomplete.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/autocomplete.png?raw=true)
+      
+Your URL should accept the query string searched for - request parameter called `value` (you may need to create a custom query / process query results)
+
+      <?php
+      public function executeTags(sfWebRequest $request)
+      {
+        $result = TagTable::getInstance()->getTagsLike($request->getParameter('value'), Doctrine_Core::HYDRATE_SINGLE_SCALAR);
+        if (!is_array($result)) $result = array($result);
+    
+        sfConfig::set('sf_web_debug', false);
+        return $this->renderText(json_encode($result));
+      }
+      
+and return a JSON encoded array
+
+      ["games","facebook game","gardening","gamification"]

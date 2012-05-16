@@ -60,3 +60,15 @@ all:
     # Insert colourpicker script stuff in the page (false) or in a slot named
     # colour_picker_js where ever you like
     use_slots:                    false
+    
+  autocomplete:
+    # Defaults
+    ## Minimum length of search term before JSON request fired
+    min_length:                   2
+    ## Allow multiple tags to be selected by default - can be overridden on a case-by-case basis
+    allow_multiple:               true
+  
+    # Insert autocomplete script stuff in the page (false) or in a slot named
+    # autocomplete_js where ever you like
+    use_slots:                    false
+    

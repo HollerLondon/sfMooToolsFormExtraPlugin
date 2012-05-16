@@ -59,7 +59,7 @@ class sfWidgetFormColourPicker extends sfWidgetFormInput
     {
       new MooRainbow('mooRainbow_%1\$s', {
         id: 'mooRainbowSelector_%1\$s',
-        wheel: %5/$s,
+        wheel: %5\$s,
         imgPath: '%3\$s',
         startColor: [ %2\$s ],
         onChange: function(color) {
@@ -79,7 +79,7 @@ EOF
         hex2RGB($startValue, true, ", "),
         sfConfig::get('app_colourpicker_image_path'),
         sfConfig::get('app_colourpicker_default_background_colour', '#eeeeee'),
-        sfConfig::get('app_colourpicker_allow_scroll', true )
+        (sfConfig::get('app_colourpicker_allow_scroll', true) ? 'true' : 'false')
     );
     
     return $this->renderColourPicker($input, $js, $toggle);

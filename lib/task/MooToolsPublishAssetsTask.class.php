@@ -77,7 +77,7 @@ EOF;
     
     // Go through all plugins - and link up those that exist
     $pluginCount = 0;
-    $externals   = array('Datepicker' => '', 'MooEditable' => 'MooEditable', 'mooRainbow' => '');
+    $externals   = array('Datepicker' => '', 'MooEditable' => 'MooEditable', 'mooRainbow' => '', 'Autocompleter' => '');
     
     foreach ($externals as $external => $subDir)
     {
