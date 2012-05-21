@@ -105,7 +105,24 @@ Validators
 ----------
 
 * Enhanced String Validator
+* String Array Validator
 
+### Tests
+
+There are unit tests for the validators - connect them in the ProjectConfiguration
+
+      /**
+       * Connect tests for plugins
+       */
+      public function setupPlugins()
+      {
+        $this->pluginConfigurations['sfMooToolsFormExtraPlugin']->connectTests();
+      }
+
+
+      ./symfony test:unit sfValidatorStringArray
+      ./symfony test:unit sfEnhancedValidatorString
+      
 
 ***
 
@@ -131,6 +148,27 @@ other validators.
     
       $this->validatorSchema['text'] = new sfEnhancedValidatorString(array('max_length'=>200), 
                                                                      array('max_length'=>'Content is too long (%current_length% characters), please limit to %max_length% characters'));
+
+
+### String Array Validator
+
+A validator for use with arrays of strings, which is useful to use with the Doctrine field type of `array`.  There are a couple of widgets included in the plugin which make use of it.
+
+
+#### Changes:
+
+ * Extends `sfValidatorString` so all options and messages for that are used
+ * Adds `num_required` to the validator settings - which extends the functionality of required to allow you specify the number of items required to be validated.
+  
+
+#### Example usage:
+
+![array_validator.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/array_validator.png?raw=true)
+
+  Default implementation:
+
+      $this->validatorSchema['benefits']    = new sfValidatorStringArray(array('required' => true, 'max_length' => 60, 'min_length' => 10, 'num_required' => 2));
+
 
 
 Widgets
