@@ -77,7 +77,6 @@ class sfValidatorStringArray extends sfValidatorString
     {
       try
       {
-        if (!is_int($idx)) var_dump($idx);
         $rawValue = (string) $rawValue;
         
         // If empty - count
@@ -98,7 +97,7 @@ class sfValidatorStringArray extends sfValidatorString
     {
       $num_remaining = count($value) - count($emptyValues);
       
-      if ($num_required != $num_remaining)
+      if ($num_required > $num_remaining)
       {
         throw new sfValidatorError($this, 'num_required', array('value' => $value, 'num_required' => $this->getOption('num_required')));
       }
