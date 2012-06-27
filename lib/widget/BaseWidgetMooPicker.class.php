@@ -6,7 +6,7 @@
  * @subpackage Widget
  * @author  Ben Lancaster <benlancaster@holler.co.uk>
  */
-abstract class BaseWidgetMooPicker extends  sfWidgetFormInput
+abstract class BaseWidgetMooPicker extends sfWidgetFormInput
 {
   /**
    * Constructor.

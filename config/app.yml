@@ -72,3 +72,12 @@ all:
     # autocomplete_js where ever you like
     use_slots:                    false
     
+  slider:
+    # Default styles - due to the way the plugin is set up - hard to add single styles for these
+    # leave blank and style .slider and .slider .knob in project css for custom implementations
+    div_style:                  "width: 300px; height: 16px; background: #ccc;"
+    knob_style:                 "width: 16px; height: 16px; background: #000; cursor: pointer;"
+  
+    # Insert autocomplete script stuff in the page (false) or in a slot named
+    # slider_js where ever you like
+    use_slots:                    false

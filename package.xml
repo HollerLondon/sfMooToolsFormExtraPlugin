@@ -3,7 +3,7 @@
   <name>sfMooToolsFormExtraPlugin</name>
   <channel>plugins.symfony-project.org</channel>
   <summary>Symfony widgets for use with the MooTools javascript framework</summary>
-  <description>This plugin contains several widgets (and a validator) for use with the MooTools (http://mootools.net/) javascript framework.</description>
+  <description>This plugin contains several widgets and validators for use with the MooTools (http://mootools.net/) javascript framework.</description>
   <lead>
     <name>Jo Carter</name>
     <user>angelsk</user>
@@ -16,9 +16,9 @@
     <email>benlancaster@holler.co.uk</email>
     <active>yes</active>
   </developer>
-  <date>2012-05-16</date>
+  <date>2012-06-27</date>
   <version>
-    <release>1.3.0</release>
+    <release>1.4.0</release>
     <api>1.0.0</api>
   </version>
   <stability>
@@ -37,12 +37,14 @@
       </dir>
       <dir name="docs">
         <dir name="images">
+          <file role="data" name="array_validator.png" />
           <file role="data" name="autocomplete.png" />
           <file role="data" name="colourpicker.png" />
           <file role="data" name="datepicker_date.png" />
           <file role="data" name="datepicker_datetime.png" />
           <file role="data" name="datepicker_input.png" />
           <file role="data" name="mooeditable.png" />
+          <file role="data" name="slider.png" />
           <file role="data" name="string_validator.png" />
         </dir>
       </dir>
@@ -52,6 +54,7 @@
         </dir>
         <dir name="validator">
           <file role="data" name="sfEnhancedValidatorString.class.php" />
+          <file role="data" name="sfValidatorStringArray.class.php" />
         </dir>
         <dir name="vendor">
           <dir name="Autocompleter" />
@@ -64,8 +67,11 @@
           <file role="data" name="sfWidgetFormColourPicker.class.php" />
           <file role="data" name="sfWidgetFormDateMooPicker.class.php" />
           <file role="data" name="sfWidgetFormDateTimeMooPicker.class.php" />
+          <file role="data" name="sfWidgetFormInputChoice.class.php" />
           <file role="data" name="sfWidgetFormInputAutocomplete.class.php" />
           <file role="data" name="sfWidgetFormInputDateTimeMooPicker.class.php" />
+          <file role="data" name="sfWidgetFormSlider.class.php" />
+          <file role="data" name="sfWidgetFormTextareaChoice.class.php" />
           <file role="data" name="sfWidgetFormTextareaMooEditable.class.php" />
         </dir>
       </dir>
@@ -75,6 +81,7 @@
         </dir>
         <dir name="unit">
           <file role="data" name="sfEnhancedValidatorStringTest.php" />
+          <file role="data" name="sfValidatorStringArrayTest.php" />
         </dir>
       </dir>
     </dir>
@@ -162,6 +169,19 @@
     </stability>
     <license uri="https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/LICENSE">MIT license</license>
     <notes>Added Autocompleter widget</notes>
+  </release>
+  <release>
+    <date>2012-06-27</date>
+    <version>
+    <release>1.4.0</release>
+    <api>1.0.0</api>
+    </version>
+    <stability>
+      <release>stable</release>
+      <api>stable</api>
+    </stability>
+    <license uri="https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/LICENSE">MIT license</license>
+    <notes>Added array validator and widgets; and slider widget</notes>
   </release>
   </changelog>
 </package>

@@ -44,6 +44,8 @@ Dependencies
      * More/Slider
      * More/Drag
      * More/Color
+   * Slider requires
+     * More/Slider
  * MooEditable, Datepicker, mooRainbow and Autocompleter in lib/vendor - see *Setup*
 
 
@@ -95,6 +97,7 @@ As such, each of the widgets accepts a `use_slots` option, which defaults to the
     include_slot('mooeditable_js');
     include_slot('colour_picker_js');
     include_slot('autocomplete_js');
+    include_slot('slider_js');
     ?>
 
 All of the widget initialisation JavaScript is fired on domready, so the slot is also safe to include in the `head`.
@@ -179,6 +182,7 @@ Widgets
 * Datepicker - drop down (with and without time)
 * mooRainbow colour picker
 * Autocomplete - predictive input
+* Slider
 
 
 #### Widget configuration options:
@@ -397,3 +401,23 @@ Your URL should accept the query string searched for - request parameter called 
 and return a JSON encoded array
 
       ["games","facebook game","gardening","gamification"]
+
+### Slider
+
+A slider with a hidden input - give it a start and end value, and it will populate the input with the position on the slider
+
+#### Default configuration
+
+ * Controls the basic style of the slider and knob - see app.yml for more information
+ 
+#### Widget configuration options:
+
+ * `start_value`:       Start value for the slider      
+ * `end_value`:         End value for the slider
+ 
+#### Example usage
+
+      <?php
+      $this->widgetSchema['value'] = new sfWidgetFormSlider(array('start_value' => 0, 'end_value' => 300));
+      
+![slider.png](https://github.com/HollerLondon/sfMooToolsFormExtraPlugin/blob/master/docs/images/slider.png?raw=true)
