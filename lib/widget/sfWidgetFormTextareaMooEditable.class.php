@@ -102,9 +102,9 @@ EOF
       $js[] = '/sfMooToolsFormExtraPlugin/js/MooEditable/MooEditable.CleanPaste.js';
     }
     
-    $extra_js = sfConfig::get('app_mooeditable_extra_js');
-    
-    if (!empty($extra_js)) $js += $extra_js;
+    $extra_js = sfConfig::get('app_mooeditable_extra_js',array());
+
+    if (!empty($extra_js)) $js = array_merge($js, $extra_js);
     
     return $js;
   }
