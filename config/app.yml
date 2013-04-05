@@ -67,6 +67,8 @@ all:
     min_length:                   2
     ## Allow multiple tags to be selected by default - can be overridden on a case-by-case basis
     allow_multiple:               true
+    ## No matter how many results shown, only displays x
+    max_choices:                  10
   
     # Insert autocomplete script stuff in the page (false) or in a slot named
     # autocomplete_js where ever you like

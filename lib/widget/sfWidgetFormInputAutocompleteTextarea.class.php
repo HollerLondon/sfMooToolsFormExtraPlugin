@@ -48,7 +48,8 @@ class sfWidgetFormInputAutocompleteTextarea extends sfWidgetFormTextarea
         'multiple':     %s,
         'selectFirst':  true,
         'selectMode':   true,
-        'minLength':    %s
+        'minLength':    %s,
+        'maxChoices':   %s,
       });
     </script>
 EOF
@@ -56,7 +57,8 @@ EOF
       $this->generateId($name),
       $this->getOption('url'),
       ($this->getOption('multiple') ? 'true' : 'false'),
-      sfConfig::get('app_autocomplete_min_length', 2)
+      sfConfig::get('app_autocomplete_min_length', 2),
+      sfConfig::get('app_autocomplete_max_choices', 10)
     );
     
     return $this->renderAutocomplete($input, $js);
