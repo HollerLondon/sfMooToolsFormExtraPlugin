@@ -64,7 +64,8 @@ class sfWidgetFormTextareaMooEditable extends sfWidgetFormTextarea
     $('%s').mooEditable( { 
       dimensions: { x: %s, y: %s },
       actions: '%s | %s toggleview',
-      baseCSS: '%s'
+      baseCSS: '%s',
+      linksInNewWindow: true
       %s
     } );
   });
