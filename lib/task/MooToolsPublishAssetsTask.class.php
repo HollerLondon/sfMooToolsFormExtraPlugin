@@ -55,15 +55,6 @@ EOF;
     // Check the project first (as the plugin may contain stubs from the git submodules via the SVN bridge)
     $symfonyLibDir = sfConfig::get('sf_lib_dir').DIRECTORY_SEPARATOR.'vendor';
     
-    if (is_dir($symfonyLibDir.DIRECTORY_SEPARATOR.'Datepicker'))
-    {
-      $libVendorDir = $symfonyLibDir;
-    }
-    else 
-    {
-      $libVendorDir = $dir.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'vendor';
-    }
-
     $fileSystem = $this->getFilesystem();
       
     // create web dir for plugin + js and css dirs (will ignore if already created)
@@ -81,6 +72,15 @@ EOF;
     
     foreach ($externals as $external => $subDir)
     {
+      if (is_dir($symfonyLibDir.DIRECTORY_SEPARATOR.$external))
+      {
+        $libVendorDir = $symfonyLibDir;
+      }
+      else 
+      {
+        $libVendorDir = $dir.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'vendor';
+      }
+        
       $vendorDir = $libVendorDir.DIRECTORY_SEPARATOR.$external.DIRECTORY_SEPARATOR;
       
       // check vendor folder exist
